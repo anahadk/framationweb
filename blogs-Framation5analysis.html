@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framation 5 Analysis — Blog</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="assets/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="assets/vendors/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="assets/vendors/thm-icons/style.css" />
+    <link rel="stylesheet" href="assets/vendors/nice-select/nice-select.css" />
+    <link rel="stylesheet" href="assets/vendors/animate/animate.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <style>
+        /* FIX FOR ICONS: Override the global font reset */
+        [class^="icon-"],
+        [class*=" icon-"] {
+            font-family: 'icomoon' !important;
+        }
+
+        /* FIX FOR FONTAWESOME ICONS if used */
+        .fa,
+        .fab,
+        .fas,
+        .far {
+            font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome" !important;
+        }
+
+        /* FIX FOR BACK TO TOP TEXT VISIBILITY */
+        .scroll-to-top {
+            color: #ffffff !important;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* ===========================
+           Footer: force white text/icons
+           =========================== */
+        .footer-one,
+        .footer-one .footer,
+        .footer-one .footer-one__inner,
+        .footer-one * {
+            color: #fff !important;
+        }
+
+        .footer-one a,
+        .footer-one a:visited,
+        .footer-one .footer-one__menu a {
+            color: #fff !important;
+        }
+
+        .footer-one .icon-box,
+        .footer-one .icon-box span,
+        .footer-one .footer-one__social-links ul li a,
+        .footer-one .scroll-to-top-box a {
+            color: #fff !important;
+            fill: currentColor !important;
+        }
+
+        .footer-one .logo-box img {
+            /* keep the logo image as-is; if you want a white version, swap the image file */
+            opacity: 1;
+        }
+
+        /* ---------------- NAVBAR ---------------- */
+
+        /* FORCE NAV MENU TEXT WHITE (ALL STATES) */
+        .navbar .nav-menu a,
+        .navbar .nav-menu a span,
+        .navbar .nav-menu a:visited {
+            color: #ffffff !important;
+        }
+
+        /* NAVBAR HOVER COLOR — FIXED */
+        .navbar .nav-menu a:hover,
+        .navbar .nav-menu a:hover span {
+            color: #ff0040 !important;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10001;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            height: 90px;
+            position: relative;
+            transition: height 0.3s ease;
+            gap: 20px;
+        }
+
+        /* Shrink navbar on scroll */
+        .navbar.scrolled .navbar-container {
+            height: 60px;
+        }
+
+        .auto-container,
+        .container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* Logo */
+        .logo {
+            justify-self: center;
+            align-self: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .navbar.scrolled .logo {
+            height: 35px;
+        }
+
+        /* Menu Styling */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Button */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            width: 40px;
+            height: 36px;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 2000;
+            position: absolute;
+            right: -20px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: white;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            display: block;
+        }
+
+        /* Hamburger to X animation */
+        .nav-toggle.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .navbar-container {
+                padding: 0 10px;
+            }
+
+            .nav-menu {
+                gap: 28px;
+            }
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .navbar-container {
+                display: flex;
+                justify-content: center;
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .logo {
+                position: relative;
+                left: auto;
+                transform: none;
+                z-index: 999;
+                height: 44px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: left 0.28s cubic-bezier(.2, .9, .2, 1);
+                padding: 40px 20px;
+                gap: 5px;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 18px;
+                letter-spacing: 1px;
+                display: block;
+                padding: 12px 0;
+                color: #fff !important;
+                opacity: 0;
+                transform: translateY(16px);
+                will-change: transform, opacity;
+            }
+
+            /* When menu is active, GSAP animates these */
+            .nav-menu.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* EXTRA SMALL */
+        @media (max-width: 480px) {
+            .logo {
+                height: 38px;
+            }
+
+            .nav-menu a {
+                font-size: 16px;
+                padding: 10px 0;
+            }
+
+            .nav-toggle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .nav-toggle span {
+                width: 24px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-menu a {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Accessibility */
+        .nav-menu a:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.12);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* helpers for split text to avoid overflow during animation */
+        .char {
+            display: inline-block;
+            line-height: 1;
+            white-space: pre;
+            transform-origin: center;
+            backface-visibility: hidden;
+        }
+
+        /* small visual polish: reduce flicker for animated elements */
+        .menu-text,
+        .hero-title,
+        .hero-sub {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ---------------- LOADER ---------------- */
+
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+        }
+
+        body.loading>*:not(#loading-screen):not(.navbar) {
+            visibility: hidden;
+        }
+
+        body.loading .navbar {
+            visibility: visible !important;
+        }
+
+        #loading-screen.hide {
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            pointer-events: none;
+        }
+
+        #loading-video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            max-height: 100vh;
+        }
+
+        /* ---------------- BLOG STYLES ---------------- */
+
+        .blog-wrapper {
+            padding: 140px 20px 100px;
+            background: #000000;
+            color: #e6e6e6;
+            min-height: 100vh;
+        }
+
+        .blog-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .blog-header h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .blog-subtitle {
+            font-size: 20px;
+            color: #bbb;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        .blog-meta {
+            margin-top: 10px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #888;
+        }
+
+        .blog-hero-image {
+            margin: 60px 0;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .blog-hero-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .blog-content p {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 22px;
+            color: #e6e6e6;
+        }
+
+        .blog-content h2 {
+            font-size: 32px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .blog-content h3 {
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .blog-content ul {
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .blog-content li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .matrix-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all .3s ease;
+            color: #000;
+        }
+
+        .matrix-card:hover {
+            background: #ffffff;
+            border-color: rgba(255, 0, 64, .3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 0, 64, .15);
+        }
+
+        .matrix-card h2 {
+            margin-top: 0;
+            color: #000;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .matrix-card h3 {
+            margin-top: 0;
+            color: #000;
+        }
+
+        .matrix-card p {
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .blog-conclusion {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .blog-conclusion h2 {
+            margin-top: 0;
+        }
+
+        .blog-cta {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 36px;
+            background: #ff0000;
+            color: #fff;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: .3s;
+            font-size: 16px;
+        }
+
+        .blog-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, .4);
+            color: #fff;
+        }
+
+        /* ---------------- MOBILE ---------------- */
+
+        @media(max-width:768px) {
+            .navbar-container {
+                grid-template-columns: 1fr;
+                height: auto;
+                padding: 15px 20px;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                gap: 20px;
+                font-size: 11px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .logo {
+                order: -1;
+                justify-content: center;
+            }
+
+            .blog-header h1 {
+                font-size: 36px;
+            }
+
+            .blog-subtitle {
+                font-size: 18px;
+            }
+
+            .blog-content p {
+                font-size: 16px;
+            }
+
+            .blog-content h2 {
+                font-size: 26px;
+            }
+
+            .matrix-card {
+                padding: 25px;
+            }
+
+            .matrix-card h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body class="loading">
+
+    <!-- LOADER -->
+    <div id="loading-screen">
+        <video id="loading-video" autoplay muted playsinline>
+            <source src="FramationLoadingScreen.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-container">
+
+            <!-- LEFT MENU -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html"><span class="menu-text">HOME</span></a></li>
+                <li><a href="aboutus.html"><span class="menu-text">ABOUT</span></a></li>
+                <li><a href="services.html"><span class="menu-text">SERVICES</span></a></li>
+            </ul>
+
+            <!-- LOGO -->
+            <a href="index.html" class="logo" aria-label="Framation home link">
+                <img src="framationbannerlogotransparent.png" alt="Framation logo">
+            </a>
+
+            <!-- RIGHT MENU -->
+            <ul class="nav-menu" id="navMenuRight">
+                <li><a href="works.html"><span class="menu-text">WORKS</span></a></li>
+                <li><a href="blogs.html"><span class="menu-text">BLOGS</span></a></li>
+                <li><a href="contact%20us.html"><span class="menu-text">CONTACT</span></a></li>
+            </ul>
+
+            <!-- MOBILE TOGGLE -->
+            <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"
+                aria-controls="navMenu navMenuRight">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- BLOG CONTENT -->
+
+    <main>
+
+        <section class="blog-wrapper">
+            <div class="blog-container">
+
+                <div class="blog-header">
+                    <h1>Framation 5 Analysis</h1>
+                    <p class="blog-subtitle">
+                        How our Framation 5 Analysis can help you in assessing the Marketing Assets and efforts of the
+                        brand
+                    </p>
+                    <p class="blog-meta">Framation Insights • Digital Strategy</p>
+                </div>
+
+                <div class="blog-hero-image">
+                    <img src="assets/F5analysis_img.png" alt="Framation 5 Analysis">
+                </div>
+
+                <article class="blog-content">
+
+                    <p>
+                        Welcome to Framation blogs, ladies and gentlemen. Marketing and matrices have quite a humble and
+                        fruitful relationship. They can simplify complex scenarios and help us, our clients, and our
+                        bosses understand what needs to be done, current progress, and the plan of action.
+                    </p>
+
+                    <p>
+                        However, the tools we use right now are rather old and outdated. Matrixes such as BCG and GE are
+                        effective for corporate strategy, but rather inefficient when it comes to measuring digital
+                        platforms and touchpoints. Hence, I thought that the modern marketing world needs modern
+                        matrices. Matrixes that are capable of practical use, since in the modern era of business where
+                        we have numerous touchpoints for the customer to interact with, and as a provider to supply to.
+                    </p>
+
+                    <p>
+                        However we all know we have a limited number of supply, hence these matrixes offer various ways
+                        to measure touchpoint values, strategic weightage in corporate decisions, and various ways to
+                        measure different kinds of organic and inorganic output from touchpoints. F5 Analysis primarily
+                        consists of 5 key matrixes.
+                    </p>
+
+                    <div class="matrix-card">
+                        <h2>Sparrow Matrix: A Smarter Way to Choose Marketing Platforms</h2>
+                        <p>
+                            Most brands waste money on marketing because they treat every platform the same. But in
+                            reality, different platforms deliver different levels of visibility and conversion. That's
+                            why Anahad Kanade's Sparrow Matrix is a highly practical decision framework. It helps
+                            prioritize channels based on two simple factors: Public Visibility (high/low) and Chance of
+                            Consumer Conversion (high/low).
+                        </p>
+                        <p>
+                            In the top-left, the Sparrow Zone represents platforms with high visibility and high
+                            conversion potential. Channels like Instagram, WhatsApp, and Snapchat sit here because they
+                            have high engagement, strong audience activity, and better targeting possibilities. These
+                            platforms can generate attention and drive action quickly.
+                        </p>
+                        <p>
+                            The top-right section is the Lizard Zone — high visibility but lower conversion reliability.
+                            Platforms like Facebook, LinkedIn, and YouTube may get reach, but they don't always turn
+                            into direct sales, especially if the audience intent is low.
+                        </p>
+                        <p>
+                            In the bottom-left is the Firefly Zone, where visibility is lower but conversion potential
+                            remains strong. Platforms like Quora and Reddit can drive high-quality leads through niche
+                            targeting and intent-driven discussions.
+                        </p>
+                        <p>
+                            Finally, the bottom-right is the Sloth Zone, which represents platforms with low visibility
+                            and low conversion value — often best avoided or used only experimentally.
+                        </p>
+                    </div>
+
+                    <div class="matrix-card">
+                        <h2>Digital Strategy KPI Matrix: A Smarter Way to Prioritize Marketing Work</h2>
+                        <p>
+                            Most marketing teams don't fail because they lack data — they fail because they track too
+                            many KPIs without knowing what to act on first. The Digital Strategy KPI Matrix solves this
+                            by mapping KPIs across two dimensions: Business Impact (Low → High) and Performance Strength
+                            (Low → High). The result is a clear prioritization framework.
+                        </p>
+                        <p>
+                            In the Critical Fix Zone, you'll find high-impact issues that demand immediate attention,
+                            like high CAC, poor page speed, cart abandonment, weak attribution, and low organic traffic.
+                            Fixing these creates instant business leverage. The Optimization Opportunity Zone is where
+                            you refine performance — improving SEO traffic, social reach, email CTR, landing page
+                            conversions, customer journey drop-offs, and paid CTR.
+                        </p>
+                        <p>
+                            The goal is to reach the Strategic Growth Zone, which includes the KPIs that drive long-term
+                            scalability: ROAS efficiency, CLV, conversion rate, top organic visibility, high-intent
+                            engagement, digital revenue, and repeat purchase rate.
+                        </p>
+                        <p>
+                            Meanwhile, the Underutilized Assets Zone highlights channels that should perform but don't —
+                            often due to weak social presence, low interaction, or poor tracking. Lastly,
+                            Eliminate/Automate and Over-Invested Zones prevent waste by identifying dead channels and
+                            activity with little measurable impact.
+                        </p>
+                        <p>
+                            This matrix turns KPI tracking into actionable strategy, not reporting noise.
+                        </p>
+                    </div>
+
+                    <div class="matrix-card">
+                        <h2>Ad-Cost Matrix: A 2x2 Framework to Choose Winning Ad Platforms</h2>
+                        <p>
+                            When you're running paid ads, the biggest question is: which platform gives you the best
+                            results for the money spent? Anahad Kanade's Ad-Cost Matrix makes this decision easier by
+                            mapping platforms across two key metrics: Cost Per Click (CPC) on the vertical axis and
+                            Click-Through Rate (CTR) on the horizontal axis.
+                        </p>
+                        <p>
+                            The objective is to quickly identify which channels are profitable, which are risky, and
+                            which should be avoided. Platforms that fall into the low CPC + high CTR quadrant (like the
+                            Crocodile) are ideal—these campaigns generate strong engagement while spending less budget,
+                            making them perfect for scaling.
+                        </p>
+                        <p>
+                            On the other hand, high CPC + low CTR platforms (like the Dog) are expensive and
+                            inconsistent. These are high-risk channels where you may spend heavily without guaranteeing
+                            solid performance.
+                        </p>
+                        <p>
+                            Platforms that deliver high CTR but high CPC (like the Cheetah) can still be
+                            useful—especially for high-margin products—because they achieve strong engagement, but
+                            require tighter budget control. Lastly, low CPC + low CTR (like the Snake) might look cheap
+                            but often underperform due to weak audience interest.
+                        </p>
+                        <p>
+                            In short, this matrix helps marketers prioritize ad platforms using clarity—not guesswork.
+                        </p>
+                    </div>
+
+                    <div class="matrix-card">
+                        <h2>PR Measurement Matrix: A Smart Way to Evaluate PR Channels</h2>
+                        <p>
+                            PR can feel difficult to measure because results aren't always direct like sales or leads.
+                            That's why PR Measurement Matrix is a practical tool—it helps brands
+                            evaluate PR channels using two clear metrics: Total Views (Impressions) on the horizontal
+                            axis and Advertisement Cost on the vertical axis.
+                        </p>
+                        <p>
+                            This 2x2 matrix divides PR platforms into four categories using simple animal labels to make
+                            decisions faster. The best-performing PR channels sit in the high impressions + low cost
+                            quadrant (the Pigeon). These platforms generate strong visibility without burning budgets,
+                            making them ideal for consistent brand-building and long-term scaling.
+                        </p>
+                        <p>
+                            Next is the high impressions + high cost quadrant (the Horse). These channels may be
+                            expensive, but they deliver big reach. They're useful for major campaigns, product launches,
+                            or credibility-building moments—where visibility is worth the cost.
+                        </p>
+                        <p>
+                            The low impressions + high cost quadrant (the Camel) is risky. These PR channels require
+                            high spend but do not guarantee reach, so they should be used only when the platform offers
+                            other benefits like niche authority or high-quality audience trust.
+                        </p>
+                        <p>
+                            Finally, low impressions + low cost platforms (the Cats) may appear safe, but their impact
+                            is limited. They're good for experimentation, local PR, or supporting campaigns—but
+                            shouldn't be the main growth lever.
+                        </p>
+                        <p>
+                            Overall, this matrix makes PR measurable by combining cost and visibility into one
+                            actionable framework.
+                        </p>
+                    </div>
+
+                    <div class="matrix-card">
+                        <h2>Digital PR KPI Matrix: The Complete Framework to Measure PR Performance</h2>
+                        <p>
+                            Digital PR is no longer just about "getting featured." Today, PR is expected to build
+                            visibility, authority, trust, and measurable business impact. That's exactly why the 9x9
+                            Digital PR KPI Matrix is so powerful—it structures PR performance into a clear measurement
+                            system instead of vague reporting.
+                        </p>
+                        <p>
+                            This matrix is built on three key pillars: Awareness, Authority, and Impact. Each pillar is
+                            measured using KPIs that connect PR activity to real outcomes.
+                        </p>
+                        <p>
+                            Under Awareness, the focus is on how widely your brand is being seen. Metrics such as
+                            impressions, reach, share of voice, and brand visibility help marketers judge whether PR is
+                            actually increasing attention in the market.
+                        </p>
+                        <p>
+                            The Authority layer measures credibility. It includes backlink quality, DA/DR growth,
+                            contextual links, and unique referring domains—showing whether PR is building long-term SEO
+                            power. It also covers media coverage strength, like Tier-1 mentions, followed links, and
+                            sentiment, ensuring the attention is coming from the right places.
+                        </p>
+                        <p>
+                            Finally, Impact measures whether PR is influencing business results. This includes lead and
+                            demand signals (leads from PR, demo/signup visits, landing page conversion rates), along
+                            with reputation and trust metrics such as brand trust score, review volume, and rating. At
+                            the highest level, PR should also support revenue impact, measured through CAC influence and
+                            lifetime value lift.
+                        </p>
+                        <p>
+                            In short, this matrix turns PR into a performance channel—measurable, scalable, and directly
+                            aligned with growth.
+                        </p>
+                    </div>
+
+                    <div class="blog-conclusion">
+                        <h2>Conclusion</h2>
+                        <p>
+                            These matrixes are made specifically for practical measurement however they do require a
+                            through product, situation and market analysis. We at Framation would be glad to do it for
+                            you and provide a concise report which will ensure that the analysis would help you in
+                            ensuring that efforts are rightly put in correct channels
+                        </p>
+
+                        <a href="contact%20us.html" class="blog-cta">
+                            Claim your free Framation5 analysis
+                        </a>
+                    </div>
+
+                </article>
+
+            </div>
+        </section>
+
+        <!-- START: Footer (FULL About Us footer copied exactly as requested) -->
+        <footer class="footer-one">
+            <!--Start Footer-->
+            <div class="footer">
+                <div class="container">
+                    <div class="footer-one__inner">
+                        <div class="logo-box text-center">
+                            <a href="index.html"><img src="framationbannerlogotransparent.png" alt="#"></a>
+                        </div>
+
+                        <div class="footer-one__contact">
+                            <div class="footer-one__contact-bdr"
+                                style="background-image: url(assets/images/footer/footer-v1-img1.png);"></div>
+                            <ul>
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-ringing"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Call anytime</p>
+                                        <h3><a href="tel:+917415556478">+91 7415556478</a></h3>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-message"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Send email</p>
+                                        <h3><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                                target="_blank">info.framation@gmail.com</a></h3>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-placeholder"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Based in</p>
+                                        <h3>India</h3>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-one__social-links">
+                            <ul>
+                                <li><a href="https://x.com/FramationStudio" target="_blank"><span
+                                            class="icon-twitter"></span></a></li>
+                                <li><a href="https://www.facebook.com/people/Framation-Media/61584107330096/"
+                                        target="_blank"><span class="icon-facebook"></span></a></li>
+                                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                        target="_blank"><span class="icon-google-plus-logo"></span></a></li>
+                                <li><a href="https://www.instagram.com/framation.media/" target="_blank"><img
+                                            src="assets/instagram-white-icon.png" alt="Instagram"
+                                            style="width: 20px; vertical-align: middle;"></a></li>
+                                <li><a href="https://www.behance.net/framation_studio" target="_blank"><img
+                                            src="assets/behance_white.png" alt="Behance"
+                                            style="width: 20px; vertical-align: middle;"></a></li>
+                            </ul>
+                            <div class="border-box"></div>
+                        </div>
+
+                        <div class="footer-one__copyright">
+                            <p>© 2025 Framation. All rights reserved.</p>
+                        </div>
+
+                        <div class="scroll-to-top-box">
+                            <a href="#" data-target="html" class="scroll-to-target scroll-to-top">Back to Top</a>
+                            <div class="border-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Footer-->
+        </footer>
+        <!-- END: Footer -->
+
+    </main>
+
+    <!-- SCRIPTS -->
+
+    <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="assets/vendors/swiper/swiper.min.js"></script>
+    <script src="assets/vendors/jquery-validate/jquery.validate.min.js"></script>
+    <script src="assets/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="assets/vendors/wow/wow.js"></script>
+    <script src="assets/vendors/gsap/gsap.js"></script>
+    <script src="assets/vendors/gsap/SplitText.js"></script>
+
+    <script>
+        // Animate navigation menu items
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                var navMenuItems = document.querySelectorAll('.nav-menu .menu-text');
+                navMenuItems.forEach(function (el, i) {
+                    var split = new SplitText(el, { type: "chars", charsClass: "char" });
+                    gsap.from(split.chars, {
+                        duration: 0.6,
+                        y: 10,
+                        opacity: 0,
+                        stagger: 0.03,
+                        ease: "power3.out",
+                        delay: 0.12 + i * 0.03
+                    });
+                });
+            } catch (e) {
+                console.warn('Menu animation error', e);
+            }
+        });
+    </script>
+    <script>
+        /* FORCE SCROLL TO TOP functionality in case custom.js has issues */
+        $(window).on('scroll', function () {
+            if ($(".scroll-to-top").length) {
+                var strickyScrollPos = 100;
+                if ($(window).scrollTop() > strickyScrollPos) {
+                    $(".scroll-to-top").fadeIn(500);
+                } else if ($(this).scrollTop() <= strickyScrollPos) {
+                    $(".scroll-to-top").fadeOut(500);
+                }
+            }
+        });
+
+        $(".scroll-to-top").off('click').on("click", function (e) {
+            e.preventDefault();
+            $("html, body").animate({ scrollTop: 0 }, 1000);
+        });
+    </script>
+
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        /* Navigation open / close */
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const navToggle = document.getElementById('navToggle');
+        const navMenus = document.querySelectorAll('.nav-menu');
+        const navMenu = document.getElementById('navMenu');
+        const navMenuRight = document.getElementById('navMenuRight');
+
+        const originalLeftHTML = navMenu ? navMenu.innerHTML : '';
+        const originalRightHTML = navMenuRight ? navMenuRight.innerHTML : '';
+
+        function mobileLinkHandler(e) {
+            if (window.innerWidth <= 768) {
+                closeMenus();
+            }
+        }
+
+        function attachNavLinkHandlers() {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.removeEventListener('click', mobileLinkHandler);
+                link.addEventListener('click', mobileLinkHandler);
+            });
+        }
+
+        function combineMobileMenus() {
+            if (!navMenu || !navMenuRight) return;
+
+            if (window.innerWidth <= 768) {
+                if (!navMenu.dataset.combined) {
+                    const rightItems = Array.from(navMenuRight.children).map(li => li.cloneNode(true));
+                    rightItems.forEach(li => navMenu.appendChild(li));
+                    navMenuRight.style.display = 'none';
+                    navMenu.dataset.combined = 'true';
+                    attachNavLinkHandlers();
+                }
+            } else {
+                if (navMenu.dataset.combined) {
+                    navMenu.innerHTML = originalLeftHTML;
+                    navMenuRight.innerHTML = originalRightHTML;
+                    navMenuRight.style.display = 'flex';
+                    delete navMenu.dataset.combined;
+                    attachNavLinkHandlers();
+                }
+            }
+        }
+
+        combineMobileMenus();
+        attachNavLinkHandlers();
+
+        window.addEventListener('resize', () => {
+            combineMobileMenus();
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+
+        function openMenus() {
+            navMenus.forEach(menu => menu.classList.add('active'));
+            navToggle.classList.add('open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeMenus() {
+            navMenus.forEach(menu => menu.classList.remove('active'));
+            navToggle.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+        }
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                const anyOpen = navToggle.classList.contains('open');
+                if (anyOpen) closeMenus(); else openMenus();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' || e.key === 'Esc') {
+                    if (navToggle.classList.contains('open')) closeMenus();
+                }
+            });
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeMenus();
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    if (window.innerWidth <= 768) closeMenus();
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+    </script>
+
+    <script>
+        /* Loading screen removal */
+        (function () {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingVideo = document.getElementById('loading-video');
+
+            function removeLoadingScreen() {
+                if (!loadingScreen) return;
+                loadingScreen.classList.add('hide');
+                document.body.classList.remove('loading');
+                setTimeout(() => {
+                    if (loadingScreen && loadingScreen.parentNode) {
+                        loadingScreen.parentNode.removeChild(loadingScreen);
+                    }
+                }, 450);
+            }
+
+            if (loadingVideo) {
+                loadingVideo.addEventListener('ended', removeLoadingScreen);
+                const playPromise = loadingVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        removeLoadingScreen();
+                    });
+                }
+            } else {
+                removeLoadingScreen();
+            }
+        })();
+    </script>
+
+    <script>
+        // Initialize WOW animations (kept to match template behavior)
+        if (typeof WOW === 'function') {
+            new WOW().init();
+        }
+    </script>
+
+    <script>
+        (function () {
+            function initNavAnimations() {
+                if (typeof gsap !== 'undefined') {
+                    try {
+                        gsap.to('.nav-menu a', {
+                            duration: 0.6,
+                            y: 0,
+                            opacity: 1,
+                            stagger: 0.06,
+                            ease: 'power3.out',
+                            overwrite: true
+                        });
+
+                        const animateActiveMenu = (menu) => {
+                            gsap.fromTo(menu.querySelectorAll('a'),
+                                { y: 16, opacity: 0 },
+                                { y: 0, opacity: 1, stagger: 0.06, duration: 0.45, ease: 'power2.out' }
+                            );
+                        };
+
+                        const navToggleBtn = document.getElementById('navToggle');
+                        if (navToggleBtn) {
+                            navToggleBtn.addEventListener('click', function () {
+                                setTimeout(() => {
+                                    document.querySelectorAll('.nav-menu.active')
+                                        .forEach(menu => animateActiveMenu(menu));
+                                }, 80);
+                            });
+                        }
+
+                        const observer = new MutationObserver((mutations) => {
+                            mutations.forEach(m => {
+                                if (m.type === 'attributes' && m.attributeName === 'class') {
+                                    const target = m.target;
+                                    if (target.classList.contains('active')) {
+                                        animateActiveMenu(target);
+                                    }
+                                }
+                            });
+                        });
+
+                        document.querySelectorAll('.nav-menu')
+                            .forEach(menu => observer.observe(menu, { attributes: true }));
+
+                    } catch (e) {
+                        document.querySelectorAll('.nav-menu a')
+                            .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                    }
+                } else {
+                    document.querySelectorAll('.nav-menu a')
+                        .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initNavAnimations);
+            } else {
+                initNavAnimations();
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

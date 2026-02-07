@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framation — Services</title>
+
+    <!-- Template fonts & styles (re-uses Baosh asset paths) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Lora:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="assets/vendors/thm-icons/style.css" />
+
+    <!-- animate.css (Baosh-like animations) -->
+    <link rel="stylesheet" href="assets/vendors/animate/animate.min.css" />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <style>
+        /* Make all text black / dark-grey as requested (override template colors) */
+        html,
+        body,
+        .page-wrapper,
+        .page-wrapper * {
+            color: #111 !important;
+            font-family: 'DM Sans', sans-serif !important;
+        }
+
+        a,
+        a:visited {
+            color: #111 !important;
+        }
+
+        /* FIX FOR ICONS: Override the global font reset */
+        [class^="icon-"],
+        [class*=" icon-"] {
+            font-family: 'icomoon' !important;
+        }
+
+        /* FIX FOR FONTAWESOME ICONS if used */
+        .fa,
+        .fab,
+        .fas,
+        .far {
+            font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome" !important;
+        }
+
+        /* FIX FOR BACK TO TOP TEXT VISIBILITY */
+        .scroll-to-top {
+            color: #ffffff !important;
+        }
+
+        /* FORCE HERO TEXT WHITE (Overrides .page-wrapper * rule & potential text fills) */
+        #home .slogan-one__content-box h1,
+        #home .slogan-one__content-box p,
+        #home .hero-title,
+        #home .hero-sub,
+        #home .tg-element-title {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+            opacity: 1 !important;
+        }
+
+
+        /* ========== NAVBAR - FIXED FOR MOBILE (FROM ABOUT PAGE) ========== */
+        /* FORCE NAV MENU TEXT WHITE (ALL STATES) */
+        .navbar .nav-menu a,
+        .navbar .nav-menu a span,
+        .navbar .nav-menu a:visited {
+            color: #ffffff !important;
+        }
+
+        /* NAVBAR HOVER COLOR — FIXED */
+        .navbar .nav-menu a:hover,
+        .navbar .nav-menu a:hover span {
+            color: #ff0040 !important;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10001;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            height: 90px;
+            position: relative;
+            transition: height 0.3s ease;
+            gap: 20px;
+        }
+
+        .navbar.scrolled .navbar-container {
+            height: 60px;
+        }
+
+        .navbar.scrolled .logo {
+            height: 35px;
+        }
+
+        .auto-container,
+        .container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        .logo {
+            justify-self: center;
+            align-self: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #ff0040 !important;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            width: 40px;
+            height: 36px;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 2000;
+            position: absolute;
+            right: -20px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: white;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            display: block;
+        }
+
+        .nav-toggle.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        @media (max-width: 1024px) {
+            .navbar-container {
+                padding: 0 10px;
+            }
+
+            .nav-menu {
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                display: flex;
+                justify-content: center;
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .logo {
+                position: relative;
+                left: auto;
+                transform: none;
+                z-index: 999;
+                height: 44px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: left 0.28s cubic-bezier(.2, .9, .2, 1);
+                padding: 40px 20px;
+                gap: 5px;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 18px;
+                letter-spacing: 1px;
+                display: block;
+                padding: 12px 0;
+                color: #fff !important;
+                opacity: 0;
+                transform: translateY(16px);
+                will-change: transform, opacity;
+            }
+
+            /* When menu is active, GSAP animates these */
+            .nav-menu.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                height: 38px;
+            }
+
+            .nav-menu a {
+                font-size: 16px;
+                padding: 10px 0;
+            }
+
+            .nav-toggle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .nav-toggle span {
+                width: 24px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-menu a {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        .nav-menu a:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.12);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* helpers for split text to avoid overflow during animation */
+        .char {
+            display: inline-block;
+            line-height: 1;
+            white-space: pre;
+            transform-origin: center;
+            backface-visibility: hidden;
+        }
+
+        /* small visual polish: reduce flicker for animated elements */
+        .menu-text,
+        .hero-title,
+        .sec-title__title,
+        .sec-title__tagline p,
+        .pack h4,
+        .pack .price,
+        .service-card h5 {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========== END NAVBAR ========== */
+
+        /* Small overrides for the services layout so it reads clearly within the template */
+        .services-packs {
+            padding: 80px 0;
+        }
+
+        .pack {
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
+            padding: 28px;
+            transition: transform .22s ease, box-shadow .22s ease;
+            background: #fff;
+            color: #111 !important;
+            overflow: hidden;
+        }
+
+        .pack:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(7, 13, 25, 0.06);
+        }
+
+        .pack .price {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #111 !important;
+        }
+
+        .pack .meta {
+            color: #444 !important;
+            margin-bottom: 16px;
+        }
+
+        .pack ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 18px;
+        }
+
+        .pack ul li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.04);
+            color: #222 !important;
+        }
+
+        .custom-services {
+            padding: 60px 0;
+            background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
+        }
+
+        .service-card {
+            border-radius: 14px;
+            padding: 20px;
+            background: #fff;
+            height: 100%;
+            box-shadow: 0 6px 24px rgba(9, 20, 40, 0.03);
+            color: #111 !important;
+            overflow: hidden;
+        }
+
+        .service-card h5 {
+            margin-top: 12px;
+            color: #111 !important;
+        }
+
+        .cta-warp {
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        /* Ensure header/menu text is dark */
+        .main-menu__list>li>a {
+            color: #111 !important;
+            display: inline-block;
+        }
+
+        .main-menu__list>li>a .menu-text {
+            display: inline-block;
+        }
+
+        .main-menu__list>li {
+            position: relative;
+        }
+
+        @media (max-width:767px) {
+            .pack {
+                margin-bottom: 20px
+            }
+        }
+
+        /* ===========================
+           Footer: force white text/icons
+           =========================== */
+        .footer-one,
+        .footer-one .footer,
+        .footer-one .footer-one__inner,
+        .footer-one * {
+            color: #fff !important;
+        }
+
+        .footer-one a,
+        .footer-one a:visited,
+        .footer-one .footer-one__menu a {
+            color: #fff !important;
+        }
+
+        .footer-one .icon-box,
+        .footer-one .icon-box span,
+        .footer-one .footer-one__social-links ul li a,
+        .footer-one .scroll-to-top-box a {
+            color: #fff !important;
+            fill: currentColor !important;
+        }
+
+        .footer-one .logo-box img {
+            /* keep the logo image as-is; if you want a white version, swap the image file */
+            opacity: 1;
+        }
+
+        /* ====================== LOADING SCREEN (copied from About template) ====================== */
+        /* Make loading-screen cover the viewport and remain above everything */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            /* black background during preview */
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+        }
+
+        /* While body has .loading, hide all direct children except #loading-screen and the navbar */
+        /* Excluding .navbar here so navbar remains visible while the intro plays */
+        body.loading>*:not(#loading-screen):not(.navbar) {
+            visibility: hidden;
+        }
+
+        /* Optional: visually smooth the hide/remove operation */
+        #loading-screen.hide {
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            pointer-events: none;
+        }
+
+        /* Constrain the loading video specifically (safe) */
+        #loading-video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            max-height: 100vh;
+        }
+
+        /* ====================== END LOADING SCREEN ====================== */
+
+        .thm-btn {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            background-color: #2c2c2c;
+            color: #fff !important;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.6em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px 46px;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .thm-btn::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background-color: #111;
+            transition: width 0.3s ease;
+            z-index: -1;
+            border-radius: 40px;
+        }
+
+        .thm-btn:hover {
+            background: #111;
+            color: #fff !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-decoration: none;
+        }
+
+        .thm-btn:hover::before {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="loading">
+    <div id="loading-screen">
+        <video id="loading-video" autoplay muted playsinline>
+            <source src="FramationLoadingScreen.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Navbar - FIXED FOR MOBILE (EXACT COPY FROM ABOUT PAGE) -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-container">
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html"><span class="menu-text">HOME</span></a></li>
+                <li><a href="aboutus.html"><span class="menu-text">ABOUT</span></a></li>
+                <li><a href="services.html"><span class="menu-text">SERVICES</span></a></li>
+            </ul>
+
+            <a href="#home" class="logo" aria-label="Framation home link">
+                <img src="framationbannerlogotransparent.png" alt="Framation logo" />
+            </a>
+
+            <ul class="nav-menu" id="navMenuRight">
+                <li><a href="works.html"><span class="menu-text">WORKS</span></a></li>
+                <li><a href="blogs.html"><span class="menu-text">BLOGS</span></a></li>
+                <li><a href="contact%20us.html"><span class="menu-text">CONTACT</span></a></li>
+            </ul>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"
+                aria-controls="navMenu navMenuRight">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="page-wrapper" style="padding-top: 110px;">
+
+        <!-- Services hero -->
+        <section id="home" class="slogan-one"
+            style="padding:60px 0; position: relative; overflow: hidden; color: #fff; background: transparent !important;">
+
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
+                <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                    <source src="assets/WEBSITE%20VIDEO2.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="auto-container" style="position: relative; z-index: 1;">
+                <div class="slogan-one__inner">
+                    <div class="container text-center">
+                        <div class="slogan-one__content-box">
+                            <h1 class="tg-element-title hero-title" style="color: #ffffff !important;">Subscriptions
+                                <br>& <br>A la carte
+                            </h1>
+                            <p class="hero-sub"
+                                style="max-width:820px; margin:12px auto 0; opacity:.95; font-size:130%; color: #ffffff !important;">
+                                Choose a
+                                monthly subscription pack to kickstart growth or pick from our custom services for
+                                one-off projects and retainers. Designed for founders, scaleups and established brands.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subscription packs -->
+        <section id="services" class="services-packs">
+            <div class="container">
+                <div class="sec-title text-center">
+                    <div class="sec-title__tagline">
+                        <p class="tg-element-title">subscription</p>
+                        <div class="border-box"></div>
+                    </div>
+                    <h2 class="sec-title__title">Choose a pack that fits your stage</h2>
+                </div>
+
+                <div class="row" style="margin-top:36px;">
+                    <!-- Pack 1: Digital Basics -->
+                    <div class="col-md-4">
+                        <div class="pack">
+                            <h4>Digital Basics</h4>
+                            <div class="price">₹5,000 <small>/ month</small></div>
+                            <div class="meta">For startups & compact business units</div>
+                            <ul>
+                                <li>15 social media creatives</li>
+                                <li>3 Reels</li>
+                                <li>Full Access to Framation 5 Analysis</li>
+                                <li> <br></li>
+                            </ul>
+                            <div class="cta-warp">
+                                <form>
+                                    <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                                        data-payment_button_id="pl_SBOoptyjjcGzQi" async> </script>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pack 2: Brand Builder -->
+                    <div class="col-md-4">
+                        <div class="pack">
+                            <h4>Brand Builder</h4>
+                            <div class="price">₹10,000 <small>/ month</small></div>
+                            <div class="meta">For growing brands & e-commerce</div>
+                            <ul>
+                                <li>25 social media creatives</li>
+                                <li>5 Reels per month</li>
+                                <li>Full Access to Framation 5 Analysis</li>
+                                <li>support for all social media platforms</li>
+                                <li>Interactive social media handling</li>
+                                <li>Content Calender & post Automation</li>
+                                <li>Paid Ads (subject to additional costs)</li>
+                                <li>Marketing Campaign design</li>
+                                <li>Business Consultancy (strategic+Branding)</li>
+                                <li>Monthly KPI report</li>
+                            </ul>
+                            <div class="cta-warp">
+                                <form>
+                                    <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                                        data-payment_button_id="pl_SBP2zx9LYbo63n" async> </script>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pack 3: Digital PR Pack -->
+                    <div class="col-md-4">
+                        <div class="pack">
+                            <h4>Digital PR Pack</h4>
+                            <div class="price">₹20,000 <small>/ month</small></div>
+                            <div class="meta">For established companies & institutes</div>
+                            <ul>
+                                <li>25 social media creatives</li>
+                                <li>5 Reels per month</li>
+                                <li>Full Access to Framation 5 Analysis</li>
+                                <li>support for all social media platforms</li>
+                                <li>Interactive social media handling</li>
+                                <li>Content Calender & post Automation</li>
+                                <li>Paid Ads (subject to additional costs)</li>
+                                <li>Marketing Campaign design</li>
+                                <li>Business Consultancy (strategic+Branding)</li>
+                                <li>Monthly KPI report</li>
+                                <li>Research Assistance</li>
+                                <li>influencer marketing (subject to additional costs)</li>
+                                <li>Live Ads (subject to additional costs)</li>
+                                <li>Copyright & Trademark assistance (subject to additional costs)</li>
+                            </ul>
+                            <div class="cta-warp">
+                                <form>
+                                    <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                                        data-payment_button_id="pl_SBP71Ef97nDL66" async> </script>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin-top:22px;">
+                    <p style="color:#666">Customizations available — add-ons, higher ad budgets, content preference and
+                        different promotion methods, etc. All packs include a 1-month minimum term.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom / A la carte services -->
+        <section class="custom-services">
+            <div class="container">
+                <div class="sec-title text-center">
+                    <div class="sec-title__tagline">
+                        <p class="tg-element-title">a la carte</p>
+                        <div class="border-box"></div>
+                    </div>
+                    <h2 class="sec-title__title">Custom services — pick what you need</h2>
+                </div>
+
+                <div class="row" style="margin-top:36px; gap:18px;">
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <span class="icon-writing"></span>
+                            <h5>Graphic Design</h5>
+                            <p>Logos, social creatives, banners, packaging — files for web & print. Quick-turn and
+                                iterative rounds.</p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <span class="icon-development"></span>
+                            <h5>Product Design </h5>
+                            <p>Product Visualization, Mock-ups, CGI ads, AI ads and animated videos and infographics</p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <span class="icon-web-design"></span>
+                            <h5>Digital Advertising</h5>
+                            <p>Campaign strategy, creatives, tracking and optimization across Google Ads, Meta, and
+                                programmatic channels.</p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="margin-top:18px;">
+                        <div class="service-card">
+                            <span class="icon-writing"></span>
+                            <h5>Video editing</h5>
+                            <p>Video editing, Live video edit, reels edit, Color Grading & Optimization</p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="margin-top:18px;">
+                        <div class="service-card">
+                            <span class="icon-search-interface-symbol"></span>
+                            <h5>Content Creation</h5>
+                            <p>infographic videos, animated reels, shorts and explainer videos</p>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="margin-top:18px;">
+                        <div class="service-card">
+                            <span class="icon-users"></span>
+                            <h5>Social Media Management</h5>
+                            <p>Community management, paid + organic mixes, content calendars and monthly reporting
+                                aligned to KPIs.</p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="text-center" style="margin-top:32px;">
+                    <a href="contact%20us.html" class="thm-btn"><span class="txt">Contact us for a custom
+                            package</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- START: Footer (FULL About Us footer copied exactly as requested) -->
+        <footer class="footer-one">
+            <!--Start Footer-->
+            <div class="footer">
+                <div class="container">
+                    <div class="footer-one__inner">
+                        <div class="logo-box text-center">
+                            <a href="index.html"><img src="framationbannerlogotransparent.png" alt="#"></a>
+                        </div>
+
+                        <div class="footer-one__contact">
+                            <div class="footer-one__contact-bdr"
+                                style="background-image: url(assets/images/footer/footer-v1-img1.png);"></div>
+                            <ul>
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-ringing"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Call anytime</p>
+                                        <h3><a href="tel:+917415556478">+91 7415556478</a></h3>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-message"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Send email</p>
+                                        <h3><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                                target="_blank">info.framation@gmail.com</a></h3>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-placeholder"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Based in</p>
+                                        <h3>India</h3>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+                        <div class="footer-one__social-links">
+                            <ul>
+                                <li><a href="https://x.com/FramationStudio" target="_blank"><span
+                                            class="icon-twitter"></span></a></li>
+                                <li><a href="https://www.facebook.com/people/Framation-Media/61584107330096/"
+                                        target="_blank"><span class="icon-facebook"></span></a></li>
+                                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                        target="_blank"><span class="icon-google-plus-logo"></span></a></li>
+                                <li><a href="https://www.instagram.com/framation.media/" target="_blank"><img
+                                            src="assets/instagram-white-icon.png" alt="Instagram"
+                                            style="width: 20px; vertical-align: middle;"></a></li>
+                                <li><a href="https://www.behance.net/framation_studio" target="_blank"><img
+                                            src="assets/behance_white.png" alt="Behance"
+                                            style="width: 20px; vertical-align: middle;"></a></li>
+                            </ul>
+                            <div class="border-box"></div>
+                        </div>
+
+                        <div class="footer-one__copyright">
+                            <p>© 2025 Framation. All rights reserved.</p>
+                        </div>
+
+                        <div class="scroll-to-top-box">
+                            <a href="#" data-target="html" class="scroll-to-target scroll-to-top">Back to Top</a>
+                            <div class="border-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Footer-->
+        </footer>
+        <!-- END: Footer -->
+
+    </main>
+
+    <div class="mobile-nav__wrapper">
+        <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+        <div class="mobile-nav__content">
+            <span class="mobile-nav__close mobile-nav__toggler">
+                <i class="icon-plus"></i>
+            </span>
+            <div class="logo-box">
+                <a href="index.html" aria-label="logo image">
+                    <img src="assets/images/resources/logo-1.png" alt="" />
+                </a>
+            </div>
+            <div class="mobile-nav__container"></div>
+            <ul class="mobile-nav__contact list-unstyled">
+                <li>
+                    <i class="fa fa-envelope"></i>
+                    <a href="mailto:info@example.com">info@example.com</a>
+                </li>
+                <li>
+                    <i class="fa fa-phone-alt"></i>
+                    <a href="tel:123456789">444 000 777 66</a>
+                </li>
+            </ul>
+            <div class="mobile-nav__social">
+                <a href="https://x.com/FramationStudio" target="_blank" class="fab fa-twitter"></a>
+                <a href="https://www.facebook.com/people/Framation-Media/61584107330096/" target="_blank"
+                    class="fab fa-facebook-square"></a>
+                <a href="#" class="fab fa-pinterest-p"></a>
+                <a href="https://www.instagram.com/framation.media/" target="_blank" class="fab fa-instagram"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-popup">
+        <div class="search-popup__overlay search-toggler"></div>
+        <div class="search-popup__content">
+            <form action="#">
+                <label for="search" class="sr-only">search here</label>
+                <input type="text" id="search" placeholder="Search Here..." />
+                <button type="submit" aria-label="search submit" class="thm-btn">
+                    <i class="icon-search-interface-symbol"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendors/gsap/gsap.js"></script>
+    <script src="assets/vendors/gsap/ScrollTrigger.js"></script>
+    <script src="assets/vendors/gsap/SplitText.js"></script>
+    <script src="assets/vendors/wow/wow.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        /* ========== JAVASCRIPT (EXACT COPY FROM ABOUT PAGE) ========== */
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const navToggle = document.getElementById('navToggle');
+        const navMenus = document.querySelectorAll('.nav-menu');
+        const navMenu = document.getElementById('navMenu');
+        const navMenuRight = document.getElementById('navMenuRight');
+
+        const originalLeftHTML = navMenu ? navMenu.innerHTML : '';
+        const originalRightHTML = navMenuRight ? navMenuRight.innerHTML : '';
+
+        function mobileLinkHandler(e) {
+            if (window.innerWidth <= 768) {
+                closeMenus();
+            }
+        }
+
+        function attachNavLinkHandlers() {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.removeEventListener('click', mobileLinkHandler);
+                link.addEventListener('click', mobileLinkHandler);
+            });
+        }
+
+        function combineMobileMenus() {
+            if (!navMenu || !navMenuRight) return;
+
+            if (window.innerWidth <= 768) {
+                if (!navMenu.dataset.combined) {
+                    const rightItems = Array.from(navMenuRight.children).map(li => li.cloneNode(true));
+                    rightItems.forEach(li => navMenu.appendChild(li));
+                    navMenuRight.style.display = 'none';
+                    navMenu.dataset.combined = 'true';
+                    attachNavLinkHandlers();
+                }
+            } else {
+                if (navMenu.dataset.combined) {
+                    navMenu.innerHTML = originalLeftHTML;
+                    navMenuRight.innerHTML = originalRightHTML;
+                    navMenuRight.style.display = 'flex';
+                    delete navMenu.dataset.combined;
+                    attachNavLinkHandlers();
+                }
+            }
+        }
+
+        combineMobileMenus();
+        attachNavLinkHandlers();
+
+        window.addEventListener('resize', () => {
+            combineMobileMenus();
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+
+        function openMenus() {
+            navMenus.forEach(menu => menu.classList.add('active'));
+            navToggle.classList.add('open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeMenus() {
+            navMenus.forEach(menu => menu.classList.remove('active'));
+            navToggle.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+        }
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                const anyOpen = navToggle.classList.contains('open');
+                if (anyOpen) closeMenus(); else openMenus();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' || e.key === 'Esc') {
+                    if (navToggle.classList.contains('open')) closeMenus();
+                }
+            });
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeMenus();
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    if (window.innerWidth <= 768) closeMenus();
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+
+        /* ========== ANIMATIONS ========== */
+        (function () {
+            function initAnimations() {
+                if (typeof WOW !== 'undefined') {
+                    new WOW({
+                        boxClass: 'wow',
+                        animateClass: 'animated',
+                        offset: 100,
+                        mobile: true,
+                        live: true
+                    }).init();
+                }
+
+                function splitAndAnimate(selector, opts) {
+                    try {
+                        var els = document.querySelectorAll(selector);
+                        els.forEach(function (el, idx) {
+                            if (el.dataset.split === 'true') return;
+                            el.dataset.split = 'true';
+
+                            var text = el.innerHTML.trim();
+                            var wrapper = document.createElement('span');
+                            wrapper.className = 'split-wrap';
+                            wrapper.style.display = 'inline-block';
+                            wrapper.style.overflow = 'visible';
+                            el.innerHTML = '';
+                            el.appendChild(wrapper);
+                            wrapper.innerHTML = text;
+
+                            var split = new SplitText(wrapper, { type: opts.type || "chars,words", charsClass: "char" });
+                            var targets = (split.chars && split.chars.length) ? split.chars : split.words;
+
+                            gsap.fromTo(targets, {
+                                y: (opts.fromY !== undefined ? opts.fromY : 18),
+                                opacity: 0,
+                                rotationX: (opts.rot || 0)
+                            }, {
+                                y: 0,
+                                opacity: 1,
+                                rotationX: 0,
+                                duration: opts.duration || 0.7,
+                                ease: opts.ease || "power3.out",
+                                stagger: opts.stagger || 0.03,
+                                delay: opts.delay || 0
+                            });
+                        });
+                    } catch (e) {
+                        console.warn('splitAndAnimate error', e);
+                    }
+                }
+
+                try {
+                    var navMenuItems = document.querySelectorAll('.nav-menu .menu-text');
+                    navMenuItems.forEach(function (el, i) {
+                        var split = new SplitText(el, { type: "chars", charsClass: "char" });
+                        gsap.from(split.chars, {
+                            duration: 0.6,
+                            y: 10,
+                            opacity: 0,
+                            stagger: 0.03,
+                            ease: "power3.out",
+                            delay: 0.12 + i * 0.03
+                        });
+                    });
+                } catch (e) {
+                    console.warn('Menu animation error', e);
+                }
+
+                splitAndAnimate('.hero-title', { type: 'chars', fromY: 20, stagger: 0.02, duration: 0.9, delay: 0.12 });
+
+                try {
+                    var heroSub = document.querySelector('.hero-sub');
+                    if (heroSub) {
+                        var splitSub = new SplitText(heroSub, { type: "words, chars", wordsClass: "word", charsClass: "char" });
+                        gsap.from(splitSub.words, {
+                            duration: 0.9,
+                            y: 12,
+                            opacity: 0,
+                            stagger: 0.06,
+                            ease: "power3.out",
+                            delay: 0.38
+                        });
+                    }
+                } catch (e) {
+                    console.warn('Hero subtitle animation failed', e);
+                }
+
+                splitAndAnimate('.sec-title__title', { type: 'chars', fromY: 18, stagger: 0.02, duration: 0.7, delay: 0.08 });
+                splitAndAnimate('.sec-title__tagline p', { type: 'chars', fromY: 10, stagger: 0.02, duration: 0.6, delay: 0.08 });
+                splitAndAnimate('.pack h4', { type: 'chars', fromY: 14, stagger: 0.02, duration: 0.6, delay: 0.18 });
+                splitAndAnimate('.pack .price', { type: 'chars', fromY: 10, stagger: 0.02, duration: 0.6, delay: 0.22 });
+                splitAndAnimate('.pack .meta', { type: 'chars', fromY: 8, stagger: 0.02, duration: 0.55, delay: 0.24 });
+                splitAndAnimate('.service-card h5', { type: 'chars', fromY: 12, stagger: 0.02, duration: 0.6, delay: 0.26 });
+
+                try {
+                    var footerLogo = document.querySelector('.footer-one .logo-box img');
+                    if (footerLogo) {
+                        gsap.from(footerLogo, { duration: 0.9, y: 12, opacity: 0, ease: "power3.out", delay: 0.36 });
+                    }
+                } catch (e) {
+                    console.warn('Footer logo animation failed', e);
+                }
+
+                try {
+                    var revealEls = document.querySelectorAll('.pack, .service-card, .sec-title');
+                    var revealObserver = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                var el = entry.target;
+                                if (!el.classList.contains('revealed')) {
+                                    el.classList.add('revealed');
+                                    gsap.fromTo(el, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", overwrite: true });
+                                }
+                            }
+                        });
+                    }, { root: null, rootMargin: "0px", threshold: 0.12 });
+
+                    revealEls.forEach(function (e) { revealObserver.observe(e); });
+                } catch (e) {
+                    console.warn('Reveal observer failed', e);
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initAnimations);
+            } else {
+                initAnimations();
+            }
+        })();
+    </script>
+
+    <script>
+        /* ========== LOADING SCREEN ========== */
+        (function () {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingVideo = document.getElementById('loading-video');
+
+            function removeLoadingScreen() {
+                if (!loadingScreen) return;
+                loadingScreen.classList.add('hide');
+                document.body.classList.remove('loading');
+                setTimeout(() => {
+                    if (loadingScreen && loadingScreen.parentNode) {
+                        loadingScreen.parentNode.removeChild(loadingScreen);
+                    }
+                }, 450);
+            }
+
+            if (loadingVideo) {
+                loadingVideo.addEventListener('ended', removeLoadingScreen);
+                const playPromise = loadingVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        removeLoadingScreen();
+                    });
+                }
+            } else {
+                removeLoadingScreen();
+            }
+        })();
+    </script>
+
+    <script>
+        (function () {
+            function initNavAnimations() {
+                if (typeof gsap !== 'undefined') {
+                    try {
+                        gsap.to('.nav-menu a', {
+                            duration: 0.6,
+                            y: 0,
+                            opacity: 1,
+                            stagger: 0.06,
+                            ease: 'power3.out',
+                            overwrite: true
+                        });
+
+                        const animateActiveMenu = (menu) => {
+                            gsap.fromTo(menu.querySelectorAll('a'),
+                                { y: 16, opacity: 0 },
+                                { y: 0, opacity: 1, stagger: 0.06, duration: 0.45, ease: 'power2.out' }
+                            );
+                        };
+
+                        const navToggleBtn = document.getElementById('navToggle');
+                        if (navToggleBtn) {
+                            navToggleBtn.addEventListener('click', function () {
+                                setTimeout(() => {
+                                    document.querySelectorAll('.nav-menu.active')
+                                        .forEach(menu => animateActiveMenu(menu));
+                                }, 80);
+                            });
+                        }
+
+                        const observer = new MutationObserver((mutations) => {
+                            mutations.forEach(m => {
+                                if (m.type === 'attributes' && m.attributeName === 'class') {
+                                    const target = m.target;
+                                    if (target.classList.contains('active')) {
+                                        animateActiveMenu(target);
+                                    }
+                                }
+                            });
+                        });
+
+                        document.querySelectorAll('.nav-menu')
+                            .forEach(menu => observer.observe(menu, { attributes: true }));
+
+                    } catch (e) {
+                        document.querySelectorAll('.nav-menu a')
+                            .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                    }
+                } else {
+                    document.querySelectorAll('.nav-menu a')
+                        .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initNavAnimations);
+            } else {
+                initNavAnimations();
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

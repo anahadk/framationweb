@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framation — Blogs</title>
+
+    <!-- reuse template fonts & vendors (assumes same assets folder) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="assets/vendors/thm-icons/style.css" />
+    <link rel="stylesheet" href="assets/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="assets/vendors/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="assets/vendors/nice-select/nice-select.css" />
+
+    <!-- animate (from template) -->
+    <link rel="stylesheet" href="assets/vendors/animate/animate.min.css" />
+
+    <!-- reuse main template styles -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <style>
+        /* FIX FOR ICONS: Override the global font reset */
+        [class^="icon-"],
+        [class*=" icon-"] {
+            font-family: 'icomoon' !important;
+        }
+
+        /* FIX FOR FONTAWESOME ICONS if used */
+        .fa,
+        .fab,
+        .fas,
+        .far {
+            font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome" !important;
+        }
+
+        /* FIX FOR BACK TO TOP TEXT VISIBILITY */
+        .scroll-to-top {
+            color: #ffffff !important;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* ===========================
+           Footer: force white text/icons
+           =========================== */
+        .footer-one,
+        .footer-one .footer,
+        .footer-one .footer-one__inner,
+        .footer-one * {
+            color: #fff !important;
+        }
+
+        .footer-one a,
+        .footer-one a:visited,
+        .footer-one .footer-one__menu a {
+            color: #fff !important;
+        }
+
+        .footer-one .icon-box,
+        .footer-one .icon-box span,
+        .footer-one .footer-one__social-links ul li a,
+        .footer-one .scroll-to-top-box a {
+            color: #fff !important;
+            fill: currentColor !important;
+        }
+
+        .footer-one .logo-box img {
+            /* keep the logo image as-is; if you want a white version, swap the image file */
+            opacity: 1;
+        }
+
+        /* --------------------------
+           NAVBAR STYLES
+           -------------------------- */
+        /* FORCE NAV MENU TEXT WHITE (ALL STATES) */
+        .navbar .nav-menu a,
+        .navbar .nav-menu a span,
+        .navbar .nav-menu a:visited {
+            color: #ffffff !important;
+        }
+
+        /* NAVBAR HOVER COLOR — FIXED */
+        .navbar .nav-menu a:hover,
+        .navbar .nav-menu a:hover span {
+            color: #ff0040 !important;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10001;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            height: 90px;
+            position: relative;
+            transition: height 0.3s ease;
+            gap: 20px;
+        }
+
+        /* Shrink navbar on scroll */
+        .navbar.scrolled .navbar-container {
+            height: 60px;
+        }
+
+        .auto-container,
+        .container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* Logo */
+        .logo {
+            justify-self: center;
+            align-self: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .navbar.scrolled .logo {
+            height: 35px;
+        }
+
+        /* Menu Styling */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Button */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            width: 40px;
+            height: 36px;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 2000;
+            position: absolute;
+            right: -20px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: white;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            display: block;
+        }
+
+        /* Hamburger to X animation */
+        .nav-toggle.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .navbar-container {
+                padding: 0 10px;
+            }
+
+            .nav-menu {
+                gap: 28px;
+            }
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .navbar-container {
+                display: flex;
+                justify-content: center;
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .logo {
+                position: relative;
+                left: auto;
+                transform: none;
+                z-index: 999;
+                height: 44px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: left 0.28s cubic-bezier(.2, .9, .2, 1);
+                padding: 40px 20px;
+                gap: 5px;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 18px;
+                letter-spacing: 1px;
+                display: block;
+                padding: 12px 0;
+                color: #fff !important;
+                opacity: 0;
+                transform: translateY(16px);
+                will-change: transform, opacity;
+            }
+
+            /* When menu is active, GSAP animates these */
+            .nav-menu.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* EXTRA SMALL */
+        @media (max-width: 480px) {
+            .logo {
+                height: 38px;
+            }
+
+            .nav-menu a {
+                font-size: 16px;
+                padding: 10px 0;
+            }
+
+            .nav-toggle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .nav-toggle span {
+                width: 24px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-menu a {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Accessibility */
+        .nav-menu a:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.12);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* helpers for split text to avoid overflow during animation */
+        .char {
+            display: inline-block;
+            line-height: 1;
+            white-space: pre;
+            transform-origin: center;
+            backface-visibility: hidden;
+        }
+
+        /* small visual polish: reduce flicker for animated elements */
+        .menu-text,
+        .hero-title,
+        .hero-sub {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ====================== LOADING SCREEN ====================== */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+        }
+
+        body.loading>*:not(#loading-screen):not(.navbar) {
+            visibility: hidden;
+        }
+
+        body.loading .navbar {
+            visibility: visible !important;
+        }
+
+        #loading-screen.hide {
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            pointer-events: none;
+        }
+
+        #loading-video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            max-height: 100vh;
+        }
+
+        /* =========================================
+           BLOG PAGE (BAOSH-LIKE + INDEX REFERENCE)
+           ========================================= */
+
+        /* background matches your index vibe */
+        .blog-page {
+            padding-top: 120px;
+            min-height: 100vh;
+            background: #000000;
+            overflow-x: hidden;
+        }
+
+        /* Header panel */
+        .blog-hero {
+            padding: 60px 0 35px;
+        }
+
+        .blog-hero__inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .blog-hero__tagline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 14px;
+        }
+
+        .blog-hero__title {
+            font-size: 52px;
+            line-height: 1.05;
+            font-weight: 800;
+            margin: 0 0 16px;
+            color: #fff;
+        }
+
+        .blog-hero__sub {
+            max-width: 780px;
+            margin: 0 auto;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.72);
+        }
+
+        /* Grid */
+        .blog-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px 70px;
+        }
+
+        .blog-grid__wrap {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 26px;
+        }
+
+        /* Card */
+        .blog-card {
+            position: relative;
+            border-radius: 22px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 0, 64, 0.35);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+        }
+
+        .blog-card__image {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .blog-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: scale(1.02);
+            transition: transform 0.35s ease;
+        }
+
+        .blog-card:hover .blog-card__image img {
+            transform: scale(1.08);
+        }
+
+        .blog-card__badge {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 8px 12px;
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+            z-index: 5;
+        }
+
+        .blog-card__content {
+            padding: 22px 22px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .blog-card__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 14px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .blog-card__meta i {
+            margin-right: 6px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .blog-card__title {
+            margin: 0;
+            font-size: 22px;
+            line-height: 1.18;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .blog-card__title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .blog-card__excerpt {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .blog-card__footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 10px;
+        }
+
+        .blog-card__read {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .blog-card__read:hover {
+            background: rgba(255, 0, 64, 0.15);
+            border-color: rgba(255, 0, 64, 0.35);
+            transform: translateY(-1px);
+            color: #fff;
+        }
+
+        .blog-card__read i {
+            font-size: 12px;
+        }
+
+        /* Pagination */
+        .blog-pagination {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .blog-pagination a {
+            width: 46px;
+            height: 46px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 900;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            transition: all 0.25s ease;
+        }
+
+        .blog-pagination a:hover,
+        .blog-pagination a.active {
+            background: rgba(255, 0, 64, 0.18);
+            border-color: rgba(255, 0, 64, 0.45);
+            transform: translateY(-1px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .blog-grid__wrap {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .blog-hero__title {
+                font-size: 44px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-page {
+                padding-top: 95px;
+            }
+
+            .blog-hero {
+                padding: 40px 0 25px;
+            }
+
+            .blog-hero__title {
+                font-size: 34px;
+            }
+
+            .blog-grid__wrap {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero__title {
+                font-size: 30px;
+            }
+
+            .blog-card__content {
+                padding: 18px 16px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body class="loading">
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen">
+        <video id="loading-video" autoplay muted playsinline>
+            <source src="FramationLoadingScreen.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="page-wrapper">
+
+        <!-- NAVBAR -->
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="navbar-container">
+
+                <!-- LEFT MENU -->
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html"><span class="menu-text">HOME</span></a></li>
+                    <li><a href="aboutus.html"><span class="menu-text">ABOUT</span></a></li>
+                    <li><a href="services.html"><span class="menu-text">SERVICES</span></a></li>
+                </ul>
+
+                <!-- LOGO -->
+                <a href="index.html" class="logo" aria-label="Framation home link">
+                    <img src="framationbannerlogotransparent.png" alt="Framation logo">
+                </a>
+
+                <!-- RIGHT MENU -->
+                <ul class="nav-menu" id="navMenuRight">
+                    <li><a href="works.html"><span class="menu-text">WORKS</span></a></li>
+                    <li><a href="blogs.html"><span class="menu-text">BLOGS</span></a></li>
+                    <li><a href="contact%20us.html"><span class="menu-text">CONTACT</span></a></li>
+                </ul>
+
+                <!-- MOBILE TOGGLE -->
+                <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"
+                    aria-controls="navMenu navMenuRight">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- BLOG PAGE CONTENT -->
+        <main class="blog-page">
+
+            <!-- Blog Header -->
+            <section class="blog-hero">
+                <div class="blog-hero__inner">
+                    <div class="blog-hero__tagline">
+                        <span>Framation</span>
+                        <span style="opacity:.35;">—</span>
+                        <span>Blogs</span>
+                    </div>
+
+                    <h1 class="blog-hero__title">Branding, Strategy & Creative Direction</h1>
+
+                    <p class="blog-hero__sub">
+                        Explore our latest articles on content strategy, social media campaigns,
+                        branding, creative direction, and performance marketing.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Blog Grid -->
+            <section class="blog-grid">
+                <div class="blog-grid__wrap">
+
+                    <!-- Blog Card Newest: Al Ries -->
+                    <article class="blog-card wow fadeInUp" data-wow-delay="0.05s">
+                        <div class="blog-card__image">
+                            <span class="blog-card__badge">Positioning</span>
+                            <img src="assets/PositioningALRies.png" alt="Al Ries Positioning" style="opacity: 0.7;">
+                        </div>
+
+                        <div class="blog-card__content">
+                            <div class="blog-card__meta">
+                                <span><i class="far fa-calendar"></i> Feb 07, 2026</span>
+                                <span><i class="far fa-clock"></i> 8 min read</span>
+                            </div>
+
+                            <h2 class="blog-card__title">
+                                <a href="blogs-AlRiesPositioning.html">What Al Ries Taught Us About Positioning</a>
+                            </h2>
+
+                            <p class="blog-card__excerpt">
+                                How contemporary brands are successfully applying Ries's positioning principles in the
+                                AI-driven marketplace.
+                            </p>
+
+                            <div class="blog-card__footer">
+                                <a class="blog-card__read" href="blogs-AlRiesPositioning.html">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog Card New -->
+                    <article class="blog-card wow fadeInUp" data-wow-delay="0.05s">
+                        <div class="blog-card__image">
+                            <span class="blog-card__badge">Market Analysis</span>
+                            <img src="assets/images/blog/blog-v1-fta.png" alt="India-EU FTA">
+                        </div>
+
+                        <div class="blog-card__content">
+                            <div class="blog-card__meta">
+                                <span><i class="far fa-calendar"></i> Feb 02, 2026</span>
+                                <span><i class="far fa-clock"></i> 6 min read</span>
+                            </div>
+
+                            <h2 class="blog-card__title">
+                                <a href="blogs-EUIndiaFTA.html">What the India–EU FTA Will Change for Indian
+                                    Consumers</a>
+                            </h2>
+
+                            <p class="blog-card__excerpt">
+                                The India–EU Free Trade Agreement's impact will be slow, layered, and structural,
+                                reshaping how Indians consume and businesses compete.
+                            </p>
+
+                            <div class="blog-card__footer">
+                                <a class="blog-card__read" href="blogs-EUIndiaFTA.html">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog Card 1 -->
+                    <article class="blog-card wow fadeInUp" data-wow-delay="0.05s">
+                        <div class="blog-card__image">
+                            <span class="blog-card__badge">Strategy</span>
+                            <img src="assets/F5analysis_img.png" alt="Blog Image">
+                        </div>
+
+                        <div class="blog-card__content">
+                            <div class="blog-card__meta">
+                                <span><i class="far fa-calendar"></i> Jan 12, 2026</span>
+                                <span><i class="far fa-clock"></i> 5 min read</span>
+                            </div>
+
+                            <h2 class="blog-card__title">
+                                <a href="blogs-Framation5analysis.html">Introducing the Framation 5 Analysis</a>
+                            </h2>
+
+                            <p class="blog-card__excerpt">
+                                A new practical way to measure marketing performances of various touchpoints
+                            </p>
+
+                            <div class="blog-card__footer">
+                                <a class="blog-card__read" href="blogs-Framation5analysis.html">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog Card 2 -->
+                    <article class="blog-card wow fadeInUp" data-wow-delay="0.12s">
+                        <div class="blog-card__image">
+                            <span class="blog-card__badge">Technology</span>
+                            <img src="assets/AIadvantagesinbranding.png" alt="Blog Image">
+                        </div>
+
+                        <div class="blog-card__content">
+                            <div class="blog-card__meta">
+                                <span><i class="far fa-calendar"></i> Jan 25, 2026</span>
+                                <span><i class="far fa-clock"></i> 6 min read</span>
+                            </div>
+
+                            <h2 class="blog-card__title">
+                                <a href="blogs-AIBranding.html">AI-Assisted Branding & Advertisement: Advantages
+                                    & Disadvantages</a>
+                            </h2>
+
+                            <p class="blog-card__excerpt">
+                                Artificial Intelligence helps FMCG brands create smarter campaigns, reach the right
+                                audience, and respond quickly to market trends.
+                            </p>
+
+                            <div class="blog-card__footer">
+                                <a class="blog-card__read" href="blogs-AIBranding.html">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+
+
+
+                    <!-- Blog Card 5 -->
+                    <article class="blog-card wow fadeInUp" data-wow-delay="0.12s">
+                        <div class="blog-card__image">
+                            <span class="blog-card__badge">Strategy</span>
+                            <img src="assets/SMMstrat.png" alt="Blog Image">
+                        </div>
+
+                        <div class="blog-card__content">
+                            <div class="blog-card__meta">
+                                <span><i class="far fa-calendar"></i> Jan 03, 2026</span>
+                                <span><i class="far fa-clock"></i> 8 min read</span>
+                            </div>
+
+                            <h2 class="blog-card__title">
+                                <a href="blogs-SocialMediaStrat.html">A Simple Social Media Strategy That Actually Works
+                                    in 2026</a>
+                            </h2>
+
+                            <p class="blog-card__excerpt">
+                                A realistic strategy structure for creators and brands: content pillars, cadence,
+                                distribution and measurement.
+                            </p>
+
+                            <div class="blog-card__footer">
+                                <a class="blog-card__read" href="blogs-SocialMediaStrat.html">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog Card 6 -->
+                    <article class="blog-card wow fadeInUp" data-wow-delay="0.18s">
+                        <div class="blog-card__image">
+                            <span class="blog-card__badge">Strategy</span>
+                            <img src="assets/EcommerceFMCG.png" alt="Blog Image">
+                        </div>
+
+                        <div class="blog-card__content">
+                            <div class="blog-card__meta">
+                                <span><i class="far fa-calendar"></i> Jan 20, 2026</span>
+                                <span><i class="far fa-clock"></i> 6 min read</span>
+                            </div>
+
+                            <h2 class="blog-card__title">
+                                <a href="blogs-QcommerceandFMCG.html">How Quick Commerce Is Reshaping the FMCG
+                                    Industry</a>
+                            </h2>
+
+                            <p class="blog-card__excerpt">
+                                Quick commerce—often called q-commerce—is rapidly transforming how consumers buy
+                                everyday essentials.
+                            </p>
+
+                            <div class="blog-card__footer">
+                                <a class="blog-card__read" href="blogs-QcommerceandFMCG.html">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- Pagination -->
+            <div class="blog-pagination">
+                <a href="#" class="active">1</a>
+                <a href="#" style="display:none;">2</a>
+                <a href="#" style="display:none;">3</a>
+            </div>
+
+            <!-- START: Footer (FULL About Us footer copied exactly as requested) -->
+            <footer class="footer-one">
+                <!--Start Footer-->
+                <div class="footer">
+                    <div class="container">
+                        <div class="footer-one__inner">
+                            <div class="logo-box text-center">
+                                <a href="index.html"><img src="framationbannerlogotransparent.png" alt="#"></a>
+                            </div>
+
+                            <div class="footer-one__contact">
+                                <div class="footer-one__contact-bdr"
+                                    style="background-image: url(assets/images/footer/footer-v1-img1.png);"></div>
+                                <ul>
+                                    <li>
+                                        <div class="icon-box">
+                                            <span class="icon-ringing"></span>
+                                        </div>
+
+                                        <div class="text-box">
+                                            <p>Call anytime</p>
+                                            <h3><a href="tel:+917415556478">+91 7415556478</a></h3>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="icon-box">
+                                            <span class="icon-message"></span>
+                                        </div>
+
+                                        <div class="text-box">
+                                            <p>Send email</p>
+                                            <h3><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                                    target="_blank">info.framation@gmail.com</a></h3>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="icon-box">
+                                            <span class="icon-placeholder"></span>
+                                        </div>
+
+                                        <div class="text-box">
+                                            <p>Based in</p>
+                                            <h3>India</h3>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="footer-one__social-links">
+                                <ul>
+                                    <li><a href="https://x.com/FramationStudio" target="_blank"><span
+                                                class="icon-twitter"></span></a></li>
+                                    <li><a href="https://www.facebook.com/people/Framation-Media/61584107330096/"
+                                            target="_blank"><span class="icon-facebook"></span></a></li>
+                                    <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                            target="_blank"><span class="icon-google-plus-logo"></span></a></li>
+                                    <li><a href="https://www.instagram.com/framation.media/" target="_blank"><img
+                                                src="assets/instagram-white-icon.png" alt="Instagram"
+                                                style="width: 20px; vertical-align: middle;"></a></li>
+                                    <li><a href="https://www.behance.net/framation_studio" target="_blank"><img
+                                                src="assets/behance_white.png" alt="Behance"
+                                                style="width: 20px; vertical-align: middle;"></a></li>
+                                </ul>
+                                <div class="border-box"></div>
+                            </div>
+
+                            <div class="footer-one__copyright">
+                                <p>© 2025 Framation. All rights reserved.</p>
+                            </div>
+
+                            <div class="scroll-to-top-box">
+                                <a href="#" data-target="html" class="scroll-to-target scroll-to-top">Back to Top</a>
+                                <div class="border-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Footer-->
+            </footer>
+            <!-- END: Footer -->
+
+        </main>
+
+    </div>
+
+    <!-- scripts -->
+    <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="assets/vendors/swiper/swiper.min.js"></script>
+    <script src="assets/vendors/jquery-validate/jquery.validate.min.js"></script>
+    <script src="assets/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="assets/vendors/wow/wow.js"></script>
+    <script src="assets/vendors/gsap/gsap.js"></script>
+    <script src="assets/vendors/gsap/SplitText.js"></script>
+
+    <script>
+        // Animate navigation menu items
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                var navMenuItems = document.querySelectorAll('.nav-menu .menu-text');
+                navMenuItems.forEach(function (el, i) {
+                    var split = new SplitText(el, { type: "chars", charsClass: "char" });
+                    gsap.from(split.chars, {
+                        duration: 0.6,
+                        y: 10,
+                        opacity: 0,
+                        stagger: 0.03,
+                        ease: "power3.out",
+                        delay: 0.12 + i * 0.03
+                    });
+                });
+            } catch (e) {
+                console.warn('Menu animation error', e);
+            }
+        });
+    </script>
+
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        /* Navigation open / close */
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const navToggle = document.getElementById('navToggle');
+        const navMenus = document.querySelectorAll('.nav-menu');
+        const navMenu = document.getElementById('navMenu');
+        const navMenuRight = document.getElementById('navMenuRight');
+
+        const originalLeftHTML = navMenu ? navMenu.innerHTML : '';
+        const originalRightHTML = navMenuRight ? navMenuRight.innerHTML : '';
+
+        function mobileLinkHandler(e) {
+            if (window.innerWidth <= 768) {
+                closeMenus();
+            }
+        }
+
+        function attachNavLinkHandlers() {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.removeEventListener('click', mobileLinkHandler);
+                link.addEventListener('click', mobileLinkHandler);
+            });
+        }
+
+        function combineMobileMenus() {
+            if (!navMenu || !navMenuRight) return;
+
+            if (window.innerWidth <= 768) {
+                if (!navMenu.dataset.combined) {
+                    const rightItems = Array.from(navMenuRight.children).map(li => li.cloneNode(true));
+                    rightItems.forEach(li => navMenu.appendChild(li));
+                    navMenuRight.style.display = 'none';
+                    navMenu.dataset.combined = 'true';
+                    attachNavLinkHandlers();
+                }
+            } else {
+                if (navMenu.dataset.combined) {
+                    navMenu.innerHTML = originalLeftHTML;
+                    navMenuRight.innerHTML = originalRightHTML;
+                    navMenuRight.style.display = 'flex';
+                    delete navMenu.dataset.combined;
+                    attachNavLinkHandlers();
+                }
+            }
+        }
+
+        combineMobileMenus();
+        attachNavLinkHandlers();
+
+        window.addEventListener('resize', () => {
+            combineMobileMenus();
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+
+        function openMenus() {
+            navMenus.forEach(menu => menu.classList.add('active'));
+            navToggle.classList.add('open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeMenus() {
+            navMenus.forEach(menu => menu.classList.remove('active'));
+            navToggle.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+        }
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                const anyOpen = navToggle.classList.contains('open');
+                if (anyOpen) closeMenus(); else openMenus();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' || e.key === 'Esc') {
+                    if (navToggle.classList.contains('open')) closeMenus();
+                }
+            });
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeMenus();
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    if (window.innerWidth <= 768) closeMenus();
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+    </script>
+
+    <script>
+        /* Loading screen removal */
+        (function () {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingVideo = document.getElementById('loading-video');
+
+            function removeLoadingScreen() {
+                if (!loadingScreen) return;
+                loadingScreen.classList.add('hide');
+                document.body.classList.remove('loading');
+                setTimeout(() => {
+                    if (loadingScreen && loadingScreen.parentNode) {
+                        loadingScreen.parentNode.removeChild(loadingScreen);
+                    }
+                }, 450);
+            }
+
+            if (loadingVideo) {
+                loadingVideo.addEventListener('ended', removeLoadingScreen);
+                const playPromise = loadingVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        removeLoadingScreen();
+                    });
+                }
+            } else {
+                removeLoadingScreen();
+            }
+        })();
+    </script>
+
+    <script>
+        // Initialize WOW animations (kept to match template behavior)
+        if (typeof WOW === 'function') {
+            new WOW().init();
+        }
+    </script>
+
+    <script>
+        (function () {
+            function initNavAnimations() {
+                if (typeof gsap !== 'undefined') {
+                    try {
+                        gsap.to('.nav-menu a', {
+                            duration: 0.6,
+                            y: 0,
+                            opacity: 1,
+                            stagger: 0.06,
+                            ease: 'power3.out',
+                            overwrite: true
+                        });
+
+                        const animateActiveMenu = (menu) => {
+                            gsap.fromTo(menu.querySelectorAll('a'),
+                                { y: 16, opacity: 0 },
+                                { y: 0, opacity: 1, stagger: 0.06, duration: 0.45, ease: 'power2.out' }
+                            );
+                        };
+
+                        const navToggleBtn = document.getElementById('navToggle');
+                        if (navToggleBtn) {
+                            navToggleBtn.addEventListener('click', function () {
+                                setTimeout(() => {
+                                    document.querySelectorAll('.nav-menu.active')
+                                        .forEach(menu => animateActiveMenu(menu));
+                                }, 80);
+                            });
+                        }
+
+                        const observer = new MutationObserver((mutations) => {
+                            mutations.forEach(m => {
+                                if (m.type === 'attributes' && m.attributeName === 'class') {
+                                    const target = m.target;
+                                    if (target.classList.contains('active')) {
+                                        animateActiveMenu(target);
+                                    }
+                                }
+                            });
+                        });
+
+                        document.querySelectorAll('.nav-menu')
+                            .forEach(menu => observer.observe(menu, { attributes: true }));
+
+                    } catch (e) {
+                        document.querySelectorAll('.nav-menu a')
+                            .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                    }
+                } else {
+                    document.querySelectorAll('.nav-menu a')
+                        .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initNavAnimations);
+            } else {
+                initNavAnimations();
+            }
+        })();
+    </script>
+    <script>
+        /* FORCE SCROLL TO TOP functionality in case custom.js has issues */
+        $(window).on('scroll', function () {
+            if ($(".scroll-to-top").length) {
+                var strickyScrollPos = 100;
+                if ($(window).scrollTop() > strickyScrollPos) {
+                    $(".scroll-to-top").fadeIn(500);
+                } else if ($(this).scrollTop() <= strickyScrollPos) {
+                    $(".scroll-to-top").fadeOut(500);
+                }
+            }
+        });
+
+        $(".scroll-to-top").off('click').on("click", function (e) {
+            e.preventDefault();
+            $("html, body").animate({ scrollTop: 0 }, 1000);
+        });
+    </script>
+</body>
+
+</html>

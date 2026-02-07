@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framation — Blank Template</title>
+
+    <!-- reuse template fonts & vendors (assumes same assets folder) -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="assets/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="assets/vendors/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="assets/vendors/nice-select/nice-select.css" />
+
+    <!-- animate (from template) -->
+    <link rel="stylesheet" href="assets/vendors/animate/animate.min.css" />
+
+    <!-- reuse main template styles -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <style>
+        /* --------------------------
+           NAVBAR STYLES
+           -------------------------- */
+        /* FORCE NAV MENU TEXT WHITE (ALL STATES) */
+        .navbar .nav-menu a,
+        .navbar .nav-menu a span,
+        .navbar .nav-menu a:visited {
+            color: #ffffff !important;
+        }
+
+        /* NAVBAR HOVER COLOR — FIXED */
+        .navbar .nav-menu a:hover,
+        .navbar .nav-menu a:hover span {
+            color: #ff0040 !important;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10001;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            height: 90px;
+            position: relative;
+            transition: height 0.3s ease;
+            gap: 20px;
+        }
+
+        /* Shrink navbar on scroll */
+        .navbar.scrolled .navbar-container {
+            height: 60px;
+        }
+
+        .auto-container,
+        .container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* Logo */
+        .logo {
+            justify-self: center;
+            align-self: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .navbar.scrolled .logo {
+            height: 35px;
+        }
+
+        /* Menu Styling */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Button */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            width: 40px;
+            height: 36px;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 2000;
+            position: absolute;
+            right: -20px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: white;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            display: block;
+        }
+
+        /* Hamburger to X animation */
+        .nav-toggle.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .navbar-container {
+                padding: 0 10px;
+            }
+
+            .nav-menu {
+                gap: 28px;
+            }
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .navbar-container {
+                display: flex;
+                justify-content: center;
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .logo {
+                position: relative;
+                left: auto;
+                transform: none;
+                z-index: 999;
+                height: 44px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: left 0.28s cubic-bezier(.2,.9,.2,1);
+                padding: 40px 20px;
+                gap: 5px;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 18px;
+                letter-spacing: 1px;
+                display: block;
+                padding: 12px 0;
+                color: #fff !important;
+                opacity: 0;
+                transform: translateY(16px);
+                will-change: transform, opacity;
+            }
+
+            /* When menu is active, GSAP animates these */
+            .nav-menu.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* EXTRA SMALL */
+        @media (max-width: 480px) {
+            .logo {
+                height: 38px;
+            }
+
+            .nav-menu a {
+                font-size: 16px;
+                padding: 10px 0;
+            }
+
+            .nav-toggle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .nav-toggle span {
+                width: 24px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-menu a {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Accessibility */
+        .nav-menu a:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.12);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* helpers for split text to avoid overflow during animation */
+        .char {
+            display: inline-block;
+            line-height: 1;
+            white-space: pre;
+            transform-origin: center;
+            backface-visibility: hidden;
+        }
+
+        /* small visual polish: reduce flicker for animated elements */
+        .menu-text,
+        .hero-title,
+        .hero-sub {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ====================== LOADING SCREEN ====================== */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+        }
+
+        body.loading > *:not(#loading-screen):not(.navbar) {
+            visibility: hidden;
+        }
+
+        body.loading .navbar {
+            visibility: visible !important;
+        }
+
+        #loading-screen.hide {
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            pointer-events: none;
+        }
+
+        #loading-video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            max-height: 100vh;
+        }
+
+        /* Blank page filler so navbar doesn't overlap empty page */
+        .blank-page-space {
+            padding-top: 120px;
+            min-height: 100vh;
+            background: #0b0f1a;
+        }
+    </style>
+</head>
+
+<body class="loading">
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen">
+        <video id="loading-video" autoplay muted playsinline>
+            <source src="FramationLoadingScreen.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="page-wrapper">
+
+        <!-- NAVBAR -->
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="navbar-container">
+
+                <!-- LEFT MENU -->
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html"><span class="menu-text">HOME</span></a></li>
+                    <li><a href="aboutus.html"><span class="menu-text">ABOUT</span></a></li>
+                    <li><a href="services.html"><span class="menu-text">SERVICES</span></a></li>
+                </ul>
+
+                <!-- LOGO -->
+                <a href="index.html" class="logo" aria-label="Framation home link">
+                    <img src="framationbannerlogotransparent.png" alt="Framation logo">
+                </a>
+
+                <!-- RIGHT MENU -->
+                <ul class="nav-menu" id="navMenuRight">
+                    <li><a href="works.html"><span class="menu-text">WORKS</span></a></li>
+                    <li><a href="blogs.html"><span class="menu-text">BLOGS</span></a></li>
+                    <li><a href="contact%20us.html"><span class="menu-text">CONTACT</span></a></li>
+                </ul>
+
+                <!-- MOBILE TOGGLE -->
+                <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navMenu navMenuRight">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- BLANK CONTENT AREA -->
+        <main class="blank-page-space"></main>
+
+    </div>
+
+    <!-- scripts -->
+    <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="assets/vendors/swiper/swiper.min.js"></script>
+    <script src="assets/vendors/jquery-validate/jquery.validate.min.js"></script>
+    <script src="assets/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="assets/vendors/wow/wow.js"></script>
+    <script src="assets/vendors/gsap/gsap.js"></script>
+    <script src="assets/vendors/gsap/SplitText.js"></script>
+
+    <script>
+        // Animate navigation menu items
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                var navMenuItems = document.querySelectorAll('.nav-menu .menu-text');
+                navMenuItems.forEach(function (el, i) {
+                    var split = new SplitText(el, { type: "chars", charsClass: "char" });
+                    gsap.from(split.chars, {
+                        duration: 0.6,
+                        y: 10,
+                        opacity: 0,
+                        stagger: 0.03,
+                        ease: "power3.out",
+                        delay: 0.12 + i * 0.03
+                    });
+                });
+            } catch (e) {
+                console.warn('Menu animation error', e);
+            }
+        });
+    </script>
+
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        /* Navigation open / close */
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const navToggle = document.getElementById('navToggle');
+        const navMenus = document.querySelectorAll('.nav-menu');
+        const navMenu = document.getElementById('navMenu');
+        const navMenuRight = document.getElementById('navMenuRight');
+
+        const originalLeftHTML = navMenu ? navMenu.innerHTML : '';
+        const originalRightHTML = navMenuRight ? navMenuRight.innerHTML : '';
+
+        function mobileLinkHandler(e) {
+            if (window.innerWidth <= 768) {
+                closeMenus();
+            }
+        }
+
+        function attachNavLinkHandlers() {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.removeEventListener('click', mobileLinkHandler);
+                link.addEventListener('click', mobileLinkHandler);
+            });
+        }
+
+        function combineMobileMenus() {
+            if (!navMenu || !navMenuRight) return;
+
+            if (window.innerWidth <= 768) {
+                if (!navMenu.dataset.combined) {
+                    const rightItems = Array.from(navMenuRight.children).map(li => li.cloneNode(true));
+                    rightItems.forEach(li => navMenu.appendChild(li));
+                    navMenuRight.style.display = 'none';
+                    navMenu.dataset.combined = 'true';
+                    attachNavLinkHandlers();
+                }
+            } else {
+                if (navMenu.dataset.combined) {
+                    navMenu.innerHTML = originalLeftHTML;
+                    navMenuRight.innerHTML = originalRightHTML;
+                    navMenuRight.style.display = 'flex';
+                    delete navMenu.dataset.combined;
+                    attachNavLinkHandlers();
+                }
+            }
+        }
+
+        combineMobileMenus();
+        attachNavLinkHandlers();
+
+        window.addEventListener('resize', () => {
+            combineMobileMenus();
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+
+        function openMenus() {
+            navMenus.forEach(menu => menu.classList.add('active'));
+            navToggle.classList.add('open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeMenus() {
+            navMenus.forEach(menu => menu.classList.remove('active'));
+            navToggle.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+        }
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                const anyOpen = navToggle.classList.contains('open');
+                if (anyOpen) closeMenus(); else openMenus();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' || e.key === 'Esc') {
+                    if (navToggle.classList.contains('open')) closeMenus();
+                }
+            });
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeMenus();
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    if (window.innerWidth <= 768) closeMenus();
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+    </script>
+
+    <script>
+        /* Loading screen removal */
+        (function () {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingVideo = document.getElementById('loading-video');
+
+            function removeLoadingScreen() {
+                if (!loadingScreen) return;
+                loadingScreen.classList.add('hide');
+                document.body.classList.remove('loading');
+                setTimeout(() => {
+                    if (loadingScreen && loadingScreen.parentNode) {
+                        loadingScreen.parentNode.removeChild(loadingScreen);
+                    }
+                }, 450);
+            }
+
+            if (loadingVideo) {
+                loadingVideo.addEventListener('ended', removeLoadingScreen);
+                const playPromise = loadingVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        removeLoadingScreen();
+                    });
+                }
+            } else {
+                removeLoadingScreen();
+            }
+        })();
+    </script>
+
+    <script>
+        // Initialize WOW animations (kept to match template behavior)
+        if (typeof WOW === 'function') {
+            new WOW().init();
+        }
+    </script>
+
+    <script>
+        (function () {
+            function initNavAnimations() {
+                if (typeof gsap !== 'undefined') {
+                    try {
+                        gsap.to('.nav-menu a', {
+                            duration: 0.6,
+                            y: 0,
+                            opacity: 1,
+                            stagger: 0.06,
+                            ease: 'power3.out',
+                            overwrite: true
+                        });
+
+                        const animateActiveMenu = (menu) => {
+                            gsap.fromTo(menu.querySelectorAll('a'),
+                                { y: 16, opacity: 0 },
+                                { y: 0, opacity: 1, stagger: 0.06, duration: 0.45, ease: 'power2.out' }
+                            );
+                        };
+
+                        const navToggleBtn = document.getElementById('navToggle');
+                        if (navToggleBtn) {
+                            navToggleBtn.addEventListener('click', function () {
+                                setTimeout(() => {
+                                    document.querySelectorAll('.nav-menu.active')
+                                        .forEach(menu => animateActiveMenu(menu));
+                                }, 80);
+                            });
+                        }
+
+                        const observer = new MutationObserver((mutations) => {
+                            mutations.forEach(m => {
+                                if (m.type === 'attributes' && m.attributeName === 'class') {
+                                    const target = m.target;
+                                    if (target.classList.contains('active')) {
+                                        animateActiveMenu(target);
+                                    }
+                                }
+                            });
+                        });
+
+                        document.querySelectorAll('.nav-menu')
+                            .forEach(menu => observer.observe(menu, { attributes: true }));
+
+                    } catch (e) {
+                        document.querySelectorAll('.nav-menu a')
+                            .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                    }
+                } else {
+                    document.querySelectorAll('.nav-menu a')
+                        .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initNavAnimations);
+            } else {
+                initNavAnimations();
+            }
+        })();
+    </script>
+</body>
+
+</html>

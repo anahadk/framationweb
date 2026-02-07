@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Framation — About Us</title>
+
+  <!-- Fonts & Core Styles -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Lora:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="assets/vendors/thm-icons/style.css" />
+  <link rel="stylesheet" href="assets/vendors/animate/animate.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+
+  <style>
+    /* GLOBAL TEXT COLOR OVERRIDE */
+    html,
+    body,
+    .page-wrapper,
+    .page-wrapper * {
+      color: #111 !important;
+      font-family: 'DM Sans', sans-serif !important;
+    }
+
+    a,
+    a:visited {
+      color: #111 !important;
+    }
+
+    /* ========== NAVBAR - FIXED FOR MOBILE ========== */
+    /* FORCE NAV MENU TEXT WHITE (ALL STATES) */
+    .navbar .nav-menu a,
+    .navbar .nav-menu a span,
+    .navbar .nav-menu a:visited {
+      color: #ffffff !important;
+    }
+
+    /* NAVBAR HOVER COLOR — FIXED */
+    .navbar .nav-menu a:hover,
+    .navbar .nav-menu a:hover span {
+      color: #ff0040 !important;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      z-index: 10001;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 90px;
+      position: relative;
+      transition: height 0.3s ease;
+      gap: 20px;
+    }
+
+    .navbar.scrolled .navbar-container {
+      height: 60px;
+    }
+
+    .navbar.scrolled .logo {
+      height: 35px;
+    }
+
+    .auto-container,
+    .container {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .logo {
+      justify-self: center;
+      align-self: center;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      z-index: 20;
+      transition: all 0.3s ease;
+    }
+
+    .logo img {
+      height: 100%;
+      width: auto;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+      align-items: center;
+      flex: 0 0 auto;
+      white-space: nowrap;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      color: #ff0040 !important;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+      width: 40px;
+      height: 36px;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      border: none;
+      padding: 0;
+      z-index: 2000;
+      position: absolute;
+      right: -20px;
+    }
+
+    .nav-toggle span {
+      width: 22px;
+      height: 2px;
+      background: white;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      display: block;
+    }
+
+    .nav-toggle.open span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.open span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    @media (max-width: 1024px) {
+      .navbar-container {
+        padding: 0 10px;
+      }
+
+      .nav-menu {
+        gap: 28px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-container {
+        display: flex;
+        justify-content: center;
+        padding: 0 20px;
+        height: 70px;
+      }
+
+      .logo {
+        position: relative;
+        left: auto;
+        transform: none;
+        z-index: 999;
+        height: 44px;
+      }
+
+      .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.98);
+        width: 100%;
+        text-align: center;
+        transition: left 0.28s cubic-bezier(.2, .9, .2, 1);
+        padding: 40px 20px;
+        gap: 5px;
+      }
+
+      .nav-menu.active {
+        left: 0;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-menu a {
+        font-size: 18px;
+        letter-spacing: 1px;
+        display: block;
+        padding: 12px 0;
+        color: #fff !important;
+        opacity: 0;
+        transform: translateY(16px);
+        will-change: transform, opacity;
+      }
+
+      /* When menu is active, GSAP animates these */
+      .nav-menu.active a {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        height: 38px;
+      }
+
+      .nav-menu a {
+        font-size: 16px;
+        padding: 10px 0;
+      }
+
+      .nav-toggle {
+        width: 44px;
+        height: 44px;
+      }
+
+      .nav-toggle span {
+        width: 24px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .nav-menu a {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    .nav-menu a:focus {
+      outline: 2px solid rgba(255, 255, 255, 0.12);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* helpers for split text to avoid overflow during animation */
+    .char {
+      display: inline-block;
+      line-height: 1;
+      white-space: pre;
+      transform-origin: center;
+      backface-visibility: hidden;
+    }
+
+    /* small visual polish: reduce flicker for animated elements */
+    .menu-text,
+    .hero-title,
+    .hero-sub {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ========== END NAVBAR ========== */
+
+    /* HERO */
+    .about-hero {
+      position: relative;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .about-hero h1,
+    .about-hero .hero-title {
+      font-family: 'Lora', serif;
+      font-size: 4em;
+      color: #fff !important;
+    }
+
+    /* Strongest override for all children (handles GSAP splits) */
+    .about-hero * {
+      color: #fff !important;
+    }
+
+    .about-hero p,
+    .about-hero .hero-sub {
+      color: #fff !important;
+      font-size: 1.3em;
+      max-width: 700px;
+      margin: 20px auto 0;
+      opacity: .9;
+    }
+
+    /* CONTENT SECTIONS */
+    .about-section {
+      background: #fff;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .about-section h2 {
+      font-family: 'Lora', serif;
+      font-size: 2.5em;
+      color: #111;
+      margin-bottom: 30px;
+    }
+
+    .about-section p {
+      font-size: 1.1em;
+      color: #444;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .team-section {
+      background: #fafafa;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .team-section h2 {
+      font-family: 'Lora', serif;
+      font-size: 2.5em;
+      color: #111;
+      margin-bottom: 50px;
+    }
+
+    .team-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .team-member {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px 20px;
+      width: 280px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .team-member:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(7, 13, 25, 0.08);
+    }
+
+    .team-member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: #000;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .cta-section h2,
+    .cta-section p {
+      color: #ffffff !important;
+    }
+
+    .cta-section .thm-btn {
+      background-color: #ffffff;
+      color: #000000 !important;
+    }
+
+    .thm-btn {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      background-color: #ff0000;
+      color: #fff !important;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.6em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 16px 46px;
+      border-radius: 40px;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+
+    .thm-btn::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background-color: #111;
+      transition: width 0.3s ease;
+      z-index: -1;
+      border-radius: 40px;
+    }
+
+    .thm-btn:hover {
+      background: #111;
+      color: #fff !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+    }
+
+    .thm-btn:hover::before {
+      width: 100%;
+    }
+
+    /* FOOTER */
+    .footer-one,
+    .footer-one *,
+    .footer-one a {
+      color: #fff !important;
+    }
+
+    .footer-one .footer-one__social-links ul li a {
+      color: #fff !important;
+    }
+
+    /* LOADING SCREEN */
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    #loading-video {
+      width: 100%;
+      height: auto;
+      max-height: 100vh;
+    }
+
+    #loading-screen.hide {
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+
+    body.loading>*:not(#loading-screen):not(.navbar) {
+      visibility: hidden;
+    }
+
+    /* FIX FOR ICONS: Override the global font reset */
+    [class^="icon-"],
+    [class*=" icon-"] {
+      font-family: 'icomoon' !important;
+    }
+
+    /* FIX FOR FONTAWESOME ICONS if used */
+    .fa,
+    .fab,
+    .fas,
+    .far {
+      font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome" !important;
+    }
+
+    /* FIX FOR BACK TO TOP TEXT VISIBILITY */
+    .scroll-to-top {
+      color: #ffffff !important;
+    }
+  </style>
+</head>
+
+<body class="loading">
+  <div id="loading-screen">
+    <video id="loading-video" autoplay muted playsinline>
+      <source src="FramationLoadingScreen.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Navbar - FIXED FOR MOBILE -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-container">
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html"><span class="menu-text">HOME</span></a></li>
+        <li><a href="aboutus.html"><span class="menu-text">ABOUT</span></a></li>
+        <li><a href="services.html"><span class="menu-text">SERVICES</span></a></li>
+      </ul>
+
+      <a href="#home" class="logo" aria-label="Framation home link">
+        <img src="framationbannerlogotransparent.png" alt="Framation logo" />
+      </a>
+
+      <ul class="nav-menu" id="navMenuRight">
+        <li><a href="works.html"><span class="menu-text">WORKS</span></a></li>
+        <li><a href="blogs.html"><span class="menu-text">BLOGS</span></a></li>
+        <li><a href="contact%20us.html"><span class="menu-text">CONTACT</span></a></li>
+      </ul>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"
+        aria-controls="navMenu navMenuRight">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="page-wrapper" style="padding-top:110px;">
+    <section class="about-hero">
+      <!-- VIDEO BACKGROUND -->
+      <div style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;">
+        <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;">
+          <source src="assets/DESIGN 3.mp4" type="video/mp4">
+        </video>
+        <!-- Overlay -->
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.5);"></div>
+      </div>
+      <div style="position:relative; z-index:1;">
+        <h1 class="hero-title" style="color: #ffffff !important;">About Framation</h1>
+        <p class="hero-sub" style="color: #ffffff !important;">Framation exists to help Indian and global brands win
+          with Indian consumers.</p>
+        <p class="hero-sub" style="color: #ffffff !important;">We work with product-led businesses—across India and
+          overseas—to shape how their offerings
+          are positioned, perceived, and chosen within the Indian market.</p>
+        <p class="hero-sub" style="color: #ffffff !important;">By combining cultural insight, brand strategy, design
+          craft, and digital performance, we
+          translate product value into brand presence that feels local, relevant, and emotionally resonant.</p>
+        <p class="hero-sub" style="color: #ffffff !important;">Not just aesthetics.<br>Not just campaigns.<br>We frame
+          Brands into Memory.</p>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>Our Story</h2>
+      <p>Crafted by an eccentric techie and a marketing geek, Framation combines deep digital expertise with marketing
+        intelligence to
+        build a living content engine for modern brands.</p>
+      <p>We design systems that adapt with changing consumer behavior, evolving platforms, and today’s VUCA
+        environment—allowing Indian and global product brands to stay culturally relevant, context-aware, and
+        commercially effective in the Indian market.</p>
+      <p>Equal parts technology-driven and insight-led, Framation operates where creativity meets scalability.</p>
+    </section>
+
+    <section class="about-section">
+      <h2>Our Mission</h2>
+      <p>Framing your brand in a unique way so that it becomes the preferred choice of Indian consumers through
+        culturally
+        relevant, adaptive branding and positioning</p>
+    </section>
+
+
+
+    <section class="cta-section">
+      <h2>Let's frame your Brand</h2>
+      <p>Let's collaborate and bring your brand's vision to life.</p>
+      <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+        <a href="contact.html" class="thm-btn"><span class="txt">Contact Us</span></a>
+        <a href="services.html" class="thm-btn"><span class="txt">Browse Services</span></a>
+      </div>
+    </section>
+
+    <footer class="footer-one">
+      <!--Start Footer-->
+      <div class="footer">
+        <div class="container">
+          <div class="footer-one__inner">
+            <div class="logo-box text-center">
+              <a href="index.html"><img src="framationbannerlogotransparent.png" alt="#"></a>
+            </div>
+
+            <div class="footer-one__contact">
+              <div class="footer-one__contact-bdr"
+                style="background-image: url(assets/images/footer/footer-v1-img1.png);"></div>
+              <ul>
+                <li>
+                  <div class="icon-box">
+                    <span class="icon-ringing"></span>
+                  </div>
+
+                  <div class="text-box">
+                    <p>Call anytime</p>
+                    <h3><a href="tel:98210009630">+91 7415556478</a></h3>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box">
+                    <span class="icon-message"></span>
+                  </div>
+
+                  <div class="text-box">
+                    <p>Send email</p>
+                    <h3><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                        target="_blank">info.framation@gmail.com</a></h3>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="icon-box">
+                    <span class="icon-placeholder"></span>
+                  </div>
+
+                  <div class="text-box">
+                    <p>Based in</p>
+                    <h3>India</h3>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="footer-one__social-links">
+              <ul>
+                <li><a href="https://x.com/FramationStudio" target="_blank"><span class="icon-twitter"></span></a></li>
+                <li><a href="https://www.facebook.com/people/Framation-Media/61584107330096/" target="_blank"><span
+                      class="icon-facebook"></span></a></li>
+                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                    target="_blank"><span class="icon-google-plus-logo"></span></a></li>
+                <li><a href="https://www.instagram.com/framation.media/" target="_blank"><img
+                      src="assets/instagram-white-icon.png" alt="Instagram"
+                      style="width: 20px; vertical-align: middle;"></a></li>
+                <li><a href="https://www.behance.net/framation_studio" target="_blank"><img
+                      src="assets/behance_white.png" alt="Behance" style="width: 20px; vertical-align: middle;"></a>
+                </li>
+              </ul>
+              <div class="border-box"></div>
+            </div>
+
+            <div class="footer-one__copyright">
+              <p>© 2025 Framation. All rights reserved.</p>
+            </div>
+
+            <div class="scroll-to-top-box">
+              <a href="#" data-target="html" class="scroll-to-target scroll-to-top">Back to Top</a>
+              <div class="border-box"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Footer-->
+    </footer>
+  </main>
+
+  <div class="mobile-nav__wrapper">
+    <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+    <div class="mobile-nav__content">
+      <span class="mobile-nav__close mobile-nav__toggler">
+        <i class="icon-plus"></i>
+      </span>
+      <div class="logo-box">
+        <a href="index.html" aria-label="logo image">
+          <img src="assets/images/resources/logo-1.png" alt="" />
+        </a>
+      </div>
+      <div class="mobile-nav__container"></div>
+      <ul class="mobile-nav__contact list-unstyled">
+        <li>
+          <i class="fa fa-envelope"></i>
+          <a href="mailto:info@example.com">info@example.com</a>
+        </li>
+        <li>
+          <i class="fa fa-phone-alt"></i>
+          <a href="tel:123456789">444 000 777 66</a>
+        </li>
+      </ul>
+      <div class="mobile-nav__social">
+        <a href="https://x.com/FramationStudio" target="_blank" class="fab fa-twitter"></a>
+        <a href="https://www.facebook.com/people/Framation-Media/61584107330096/" target="_blank"
+          class="fab fa-facebook-square"></a>
+        <a href="#" class="fab fa-pinterest-p"></a>
+        <a href="https://www.instagram.com/framation.media/" target="_blank" class="fab fa-instagram"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-popup">
+    <div class="search-popup__overlay search-toggler"></div>
+    <div class="search-popup__content">
+      <form action="#">
+        <label for="search" class="sr-only">search here</label>
+        <input type="text" id="search" placeholder="Search Here..." />
+        <button type="submit" aria-label="search submit" class="thm-btn">
+          <i class="icon-search-interface-symbol"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+  <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendors/gsap/gsap.js"></script>
+  <script src="assets/vendors/gsap/ScrollTrigger.js"></script>
+  <script src="assets/vendors/gsap/SplitText.js"></script>
+  <script src="assets/vendors/wow/wow.js"></script>
+  <script src="assets/js/custom.js"></script>
+
+  <script>
+    /* ========== JAVASCRIPT ========== */
+    const navbar = document.querySelector('.navbar');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    const navToggle = document.getElementById('navToggle');
+    const navMenus = document.querySelectorAll('.nav-menu');
+    const navMenu = document.getElementById('navMenu');
+    const navMenuRight = document.getElementById('navMenuRight');
+
+    const originalLeftHTML = navMenu ? navMenu.innerHTML : '';
+    const originalRightHTML = navMenuRight ? navMenuRight.innerHTML : '';
+
+    function mobileLinkHandler(e) {
+      if (window.innerWidth <= 768) {
+        closeMenus();
+      }
+    }
+
+    function attachNavLinkHandlers() {
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.removeEventListener('click', mobileLinkHandler);
+        link.addEventListener('click', mobileLinkHandler);
+      });
+    }
+
+    function combineMobileMenus() {
+      if (!navMenu || !navMenuRight) return;
+
+      if (window.innerWidth <= 768) {
+        if (!navMenu.dataset.combined) {
+          const rightItems = Array.from(navMenuRight.children).map(li => li.cloneNode(true));
+          rightItems.forEach(li => navMenu.appendChild(li));
+          navMenuRight.style.display = 'none';
+          navMenu.dataset.combined = 'true';
+          attachNavLinkHandlers();
+        }
+      } else {
+        if (navMenu.dataset.combined) {
+          navMenu.innerHTML = originalLeftHTML;
+          navMenuRight.innerHTML = originalRightHTML;
+          navMenuRight.style.display = 'flex';
+          delete navMenu.dataset.combined;
+          attachNavLinkHandlers();
+        }
+      }
+    }
+
+    combineMobileMenus();
+    attachNavLinkHandlers();
+
+    window.addEventListener('resize', () => {
+      combineMobileMenus();
+      if (window.innerWidth > 768) {
+        closeMenus();
+      }
+    });
+
+    function openMenus() {
+      navMenus.forEach(menu => menu.classList.add('active'));
+      navToggle.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('no-scroll');
+    }
+
+    function closeMenus() {
+      navMenus.forEach(menu => menu.classList.remove('active'));
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+    }
+
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        const anyOpen = navToggle.classList.contains('open');
+        if (anyOpen) closeMenus(); else openMenus();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+          if (navToggle.classList.contains('open')) closeMenus();
+        }
+      });
+    }
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          closeMenus();
+        }
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#') return;
+
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          if (window.innerWidth <= 768) closeMenus();
+
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        closeMenus();
+      }
+    });
+
+    /* ========== ANIMATIONS ========== */
+    (function () {
+      function initAnimations() {
+        if (typeof WOW !== 'undefined') {
+          new WOW({
+            boxClass: 'wow',
+            animateClass: 'animated',
+            offset: 100,
+            mobile: true,
+            live: true
+          }).init();
+        }
+
+        function splitAndAnimate(selector, opts) {
+          try {
+            var els = document.querySelectorAll(selector);
+            els.forEach(function (el, idx) {
+              if (el.dataset.split === 'true') return;
+              el.dataset.split = 'true';
+
+              var text = el.innerHTML.trim();
+              var wrapper = document.createElement('span');
+              wrapper.className = 'split-wrap';
+              wrapper.style.display = 'inline-block';
+              wrapper.style.overflow = 'visible';
+              el.innerHTML = '';
+              el.appendChild(wrapper);
+              wrapper.innerHTML = text;
+
+              var split = new SplitText(wrapper, { type: opts.type || "chars,words", charsClass: "char" });
+              var targets = (split.chars && split.chars.length) ? split.chars : split.words;
+
+              gsap.fromTo(targets, {
+                y: (opts.fromY !== undefined ? opts.fromY : 18),
+                opacity: 0,
+                rotationX: (opts.rot || 0)
+              }, {
+                y: 0,
+                opacity: 1,
+                rotationX: 0,
+                duration: opts.duration || 0.7,
+                ease: opts.ease || "power3.out",
+                stagger: opts.stagger || 0.03,
+                delay: opts.delay || 0
+              });
+            });
+          } catch (e) {
+            console.warn('splitAndAnimate error', e);
+          }
+        }
+
+        try {
+          var navMenuItems = document.querySelectorAll('.nav-menu .menu-text');
+          navMenuItems.forEach(function (el, i) {
+            var split = new SplitText(el, { type: "chars", charsClass: "char" });
+            gsap.from(split.chars, {
+              duration: 0.6,
+              y: 10,
+              opacity: 0,
+              stagger: 0.03,
+              ease: "power3.out",
+              delay: 0.12 + i * 0.03
+            });
+          });
+        } catch (e) {
+          console.warn('Menu animation error', e);
+        }
+
+        splitAndAnimate('.hero-title', { type: 'chars', fromY: 20, stagger: 0.02, duration: 0.9, delay: 0.12 });
+
+        try {
+          var heroSub = document.querySelector('.hero-sub');
+          if (heroSub) {
+            var splitSub = new SplitText(heroSub, { type: "words, chars", wordsClass: "word", charsClass: "char" });
+            gsap.from(splitSub.words, {
+              duration: 0.9,
+              y: 12,
+              opacity: 0,
+              stagger: 0.06,
+              ease: "power3.out",
+              delay: 0.38
+            });
+          }
+        } catch (e) {
+          console.warn('Hero subtitle animation failed', e);
+        }
+
+        splitAndAnimate('.about-section h2', { type: 'chars', fromY: 18, stagger: 0.02, duration: 0.7, delay: 0.08 });
+        splitAndAnimate('.about-section p', { type: 'words', fromY: 10, stagger: 0.04, duration: 0.8, delay: 0.2 });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAnimations);
+      } else {
+        initAnimations();
+      }
+    })();
+
+    /* ========== LOADING SCREEN ========== */
+    (function () {
+      const loadingScreen = document.getElementById('loading-screen');
+      const loadingVideo = document.getElementById('loading-video');
+
+      function removeLoadingScreen() {
+        if (!loadingScreen) return;
+        loadingScreen.classList.add('hide');
+        document.body.classList.remove('loading');
+        setTimeout(() => {
+          if (loadingScreen && loadingScreen.parentNode) {
+            loadingScreen.parentNode.removeChild(loadingScreen);
+          }
+        }, 450);
+      }
+
+      if (loadingVideo) {
+        loadingVideo.addEventListener('ended', removeLoadingScreen);
+        const playPromise = loadingVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            removeLoadingScreen();
+          });
+        }
+      } else {
+        removeLoadingScreen();
+      }
+    })();
+  </script>
+
+  <script>
+    (function () {
+      function initNavAnimations() {
+        if (typeof gsap !== 'undefined') {
+          try {
+            gsap.to('.nav-menu a', {
+              duration: 0.6,
+              y: 0,
+              opacity: 1,
+              stagger: 0.06,
+              ease: 'power3.out',
+              overwrite: true
+            });
+
+            const animateActiveMenu = (menu) => {
+              gsap.fromTo(menu.querySelectorAll('a'),
+                { y: 16, opacity: 0 },
+                { y: 0, opacity: 1, stagger: 0.06, duration: 0.45, ease: 'power2.out' }
+              );
+            };
+
+            const navToggleBtn = document.getElementById('navToggle');
+            if (navToggleBtn) {
+              navToggleBtn.addEventListener('click', function () {
+                setTimeout(() => {
+                  document.querySelectorAll('.nav-menu.active')
+                    .forEach(menu => animateActiveMenu(menu));
+                }, 80);
+              });
+            }
+
+            const observer = new MutationObserver((mutations) => {
+              mutations.forEach(m => {
+                if (m.type === 'attributes' && m.attributeName === 'class') {
+                  const target = m.target;
+                  if (target.classList.contains('active')) {
+                    animateActiveMenu(target);
+                  }
+                }
+              });
+            });
+
+            document.querySelectorAll('.nav-menu')
+              .forEach(menu => observer.observe(menu, { attributes: true }));
+
+          } catch (e) {
+            document.querySelectorAll('.nav-menu a')
+              .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+          }
+        } else {
+          document.querySelectorAll('.nav-menu a')
+            .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initNavAnimations);
+      } else {
+        initNavAnimations();
+      }
+    })();
+  </script>
+
+</body>
+
+</html>

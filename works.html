@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framation — Portfolio</title>
+
+    <!-- reuse template fonts & vendors (assumes same assets folder) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="assets/vendors/thm-icons/style.css" />
+    <link rel="stylesheet" href="assets/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="assets/vendors/swiper/swiper.min.css" />
+
+    <!-- animate (from template) -->
+    <link rel="stylesheet" href="assets/vendors/animate/animate.min.css" />
+
+    <!-- reuse main template styles -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <style>
+        /* FIX FOR ICONS: Override the global font reset */
+        [class^="icon-"],
+        [class*=" icon-"] {
+            font-family: 'icomoon' !important;
+        }
+
+        /* FIX FOR FONTAWESOME ICONS if used */
+        .fa,
+        .fab,
+        .fas,
+        .far {
+            font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome" !important;
+        }
+
+        /* FIX FOR BACK TO TOP TEXT VISIBILITY */
+        .scroll-to-top {
+            color: #ffffff !important;
+        }
+
+        /* small overrides to adapt the template look for a portfolio page */
+        .portfolio-hero {
+            padding: 120px 0 80px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-hero .title h1 {
+            font-size: 48px;
+            line-height: 1.05;
+            margin-bottom: 12px;
+        }
+
+        .filter-controls a {
+            cursor: pointer;
+        }
+
+        .project-card .inner img {
+            height: 260px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        /* project overlay */
+        .project-card .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 18px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.55));
+            transition: transform .35s ease;
+            transform: translateY(0);
+        }
+
+        .project-card:hover .overlay {
+            transform: translateY(0);
+        }
+
+        .project-meta {
+            color: #fff;
+        }
+
+        /* keep footer small on portfolio page */
+        .footer-one {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+
+        /* --------------------------
+           NAVBAR STYLES
+           (MATCHING CONTACT US PAGE EXACTLY)
+           -------------------------- */
+        /* FORCE NAV MENU TEXT WHITE (ALL STATES) */
+        .navbar .nav-menu a,
+        .navbar .nav-menu a span,
+        .navbar .nav-menu a:visited {
+            color: #ffffff !important;
+        }
+
+        /* NAVBAR HOVER COLOR — FIXED */
+        .navbar .nav-menu a:hover,
+        .navbar .nav-menu a:hover span {
+            color: #ff0040 !important;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10001;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            height: 90px;
+            position: relative;
+            transition: height 0.3s ease;
+            gap: 20px;
+        }
+
+        /* Shrink navbar on scroll */
+        .navbar.scrolled .navbar-container {
+            height: 60px;
+        }
+
+        .auto-container,
+        .container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* Logo */
+        .logo {
+            justify-self: center;
+            align-self: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .navbar.scrolled .logo {
+            height: 35px;
+        }
+
+        /* Menu Styling */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Button */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            width: 40px;
+            height: 36px;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 2000;
+            position: absolute;
+            right: -20px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: white;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            display: block;
+        }
+
+        /* Hamburger to X animation */
+        .nav-toggle.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .navbar-container {
+                padding: 0 10px;
+            }
+
+            .nav-menu {
+                gap: 28px;
+            }
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .navbar-container {
+                display: flex;
+                justify-content: center;
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .logo {
+                position: relative;
+                left: auto;
+                transform: none;
+                z-index: 999;
+                height: 44px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: left 0.28s cubic-bezier(.2, .9, .2, 1);
+                padding: 40px 20px;
+                gap: 5px;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 18px;
+                letter-spacing: 1px;
+                display: block;
+                padding: 12px 0;
+                color: #fff !important;
+                opacity: 0;
+                transform: translateY(16px);
+                will-change: transform, opacity;
+            }
+
+            /* When menu is active, GSAP animates these */
+            .nav-menu.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* EXTRA SMALL */
+        @media (max-width: 480px) {
+            .logo {
+                height: 38px;
+            }
+
+            .nav-menu a {
+                font-size: 16px;
+                padding: 10px 0;
+            }
+
+            .nav-toggle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .nav-toggle span {
+                width: 24px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-menu a {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Accessibility */
+        .nav-menu a:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.12);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* helpers for split text to avoid overflow during animation */
+        .char {
+            display: inline-block;
+            line-height: 1;
+            white-space: pre;
+            transform-origin: center;
+            backface-visibility: hidden;
+        }
+
+        /* small visual polish: reduce flicker for animated elements */
+        .menu-text,
+        .hero-title,
+        .hero-sub {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --------------------------
+           END NAVBAR STYLES
+           -------------------------- */
+
+
+        /* ====================== LOADING SCREEN (copied from Services template) ====================== */
+        /* Make loading-screen cover the viewport and remain above everything */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            /* black background during preview */
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+        }
+
+        /* While body has .loading, hide all direct children except #loading-screen and the navbar */
+        /* Excluding .navbar here so navbar remains visible while the intro plays */
+        body.loading>*:not(#loading-screen):not(.navbar) {
+            visibility: hidden;
+        }
+
+        /* Optional: visually smooth the hide/remove operation */
+        #loading-screen.hide {
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            pointer-events: none;
+        }
+
+        /* Constrain the loading video specifically (safe) */
+        #loading-video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            max-height: 100vh;
+        }
+
+
+        /* ====================== END LOADING SCREEN ====================== */
+
+        /* ====================== PRODUCT VIZ MODAL ====================== */
+        #viz-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 20000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #viz-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .viz-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .viz-slideshow {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            margin-bottom: 20px;
+        }
+
+        .viz-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .viz-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .viz-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .viz-text {
+            color: #fff;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .viz-text h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .viz-text p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .viz-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .viz-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .viz-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .viz-prev {
+            left: -60px;
+        }
+
+        .viz-next {
+            right: -60px;
+        }
+
+        @media (max-width: 768px) {
+            .viz-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .viz-prev {
+                left: 10px;
+            }
+
+            .viz-next {
+                right: 10px;
+            }
+
+            .viz-close {
+                top: -40px;
+                right: 10px;
+            }
+
+            .viz-text h2 {
+                font-size: 24px;
+            }
+
+            .viz-text p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body class="loading">
+    <div id="loading-screen">
+        <video id="loading-video" autoplay muted playsinline>
+            <source src="FramationLoadingScreen.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="page-wrapper">
+
+        <!-- NAVBAR (MATCHING CONTACT US PAGE EXACTLY) -->
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="navbar-container">
+
+                <!-- LEFT MENU -->
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html"><span class="menu-text">HOME</span></a></li>
+                    <li><a href="aboutus.html"><span class="menu-text">ABOUT</span></a></li>
+                    <li><a href="services.html"><span class="menu-text">SERVICES</span></a></li>
+                </ul>
+
+                <!-- LOGO -->
+                <a href="index.html" class="logo" aria-label="Framation home link">
+                    <img src="framationbannerlogotransparent.png" alt="Framation logo">
+                </a>
+
+                <!-- RIGHT MENU -->
+                <ul class="nav-menu" id="navMenuRight">
+                    <li><a href="works.html"><span class="menu-text">WORKS</span></a></li>
+                    <li><a href="blogs.html"><span class="menu-text">BLOGS</span></a></li>
+                    <li><a href="contact%20us.html"><span class="menu-text">CONTACT</span></a></li>
+                </ul>
+
+                <!-- MOBILE TOGGLE -->
+                <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"
+                    aria-controls="navMenu navMenuRight">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+        <!-- END NAVBAR -->
+
+        <!-- HERO -->
+        <section class="portfolio-hero text-center">
+            <!-- VIDEO BACKGROUND -->
+            <div style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;">
+                <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;">
+                    <source src="assets/design1.mp4" type="video/mp4">
+                </video>
+                <!-- Overlay to match original design darkness -->
+                <div
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;background: linear-gradient(135deg, rgba(0, 0, 0, 0.55), rgba(6, 28, 53, 0.6));">
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="sec-title tg-heading-subheading animation-style2">
+                    <div class="sec-title__tagline wow fadeInUp" data-wow-delay="0.15s" data-wow-duration="700ms">
+                        <p class="tg-element-title">Content Showcase</p>
+                        <div class="border-box"></div>
+                    </div>
+                    <div class="title">
+                        <h1 class="tg-element-title wow fadeInUp" data-wow-delay="0.25s" data-wow-duration="800ms">
+                            Content <span class="icon-right-arrow-1"></span> Demos</h1>
+                        <p class="lead wow fadeInUp" data-wow-delay="0.35s" data-wow-duration="800ms">A showcase of
+                            Content & services that we provide to our clients</p>
+                    </div>
+                </div>
+
+                <div class="btn-box mt-4 wow zoomIn" data-wow-delay="0.5s" data-wow-duration="700ms">
+                    <a class="thm-btn" href="contact%20us.html" target="_blank"><span class="txt">I want to
+                            enquire!</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO GRID -->
+        <section class="gallery-one">
+            <div class="container">
+                <div class="row g-4" id="portfolio-grid">
+
+                    <!-- Project 1 -->
+                    <div id="product-viz-card" class="col-xl-4 col-lg-6 col-md-6 mix branding project-card wow fadeInUp"
+                        data-wow-delay="0.15s" style="cursor: pointer;">
+                        <div class="gallery-one__single">
+                            <div class="gallery-one__single-img position-relative inner">
+                                <img src="assets/images/gallery/gallery-v1-img1.jpg" alt="Project 1">
+                                <div class="overlay wow slideInUp" data-wow-delay="0.25s">
+                                    <div class="project-meta">
+                                        <h4>Product Visualization</h4>
+                                        <p>Brand Presence • Trust Building • Max Impressions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div id="product-mockups-card" class="col-xl-4 col-lg-6 col-md-6 mix uiux project-card wow fadeInUp"
+                        data-wow-delay="0.2s" style="cursor: pointer;">
+                        <div class="gallery-one__single">
+                            <div class="gallery-one__single-img position-relative inner">
+                                <img src="assets/images/gallery/gallery-v1-img2.jpg" alt="Project 2">
+                                <div class="overlay wow slideInUp" data-wow-delay="0.3s">
+                                    <div class="project-meta">
+                                        <h4>Product Mockups</h4>
+                                        <p>Premium Identity • Brand Credibility • Modern appeal</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div id="infographics-card" class="col-xl-4 col-lg-6 col-md-6 mix ads project-card wow fadeInUp"
+                        data-wow-delay="0.25s" style="cursor: pointer;">
+                        <div class="gallery-one__single">
+                            <div class="gallery-one__single-img position-relative inner">
+                                <img src="assets/images/gallery/gallery-v1-img3.jpg" alt="Project 3">
+                                <div class="overlay wow slideInUp" data-wow-delay="0.35s">
+                                    <div class="project-meta">
+                                        <h4>Infographics</h4>
+                                        <p>Data Visualization • Visual Storytelling • Engagement</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="col-xl-4 col-lg-6 col-md-6 mix dev project-card wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="gallery-one__single">
+                            <div class="gallery-one__single-img position-relative inner">
+                                <img src="assets/images/gallery/gallery-v1-img4.jpg" alt="Project 4">
+                                <div class="overlay wow slideInUp" data-wow-delay="0.4s">
+                                    <div class="project-meta">
+                                        <h4>Site Build demo</h4>
+                                        <p>Web • Performance</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div id="packaging-card" class="col-xl-4 col-lg-6 col-md-6 mix branding project-card wow fadeInUp"
+                        data-wow-delay="0.35s" style="cursor: pointer;">
+                        <div class="gallery-one__single">
+                            <div class="gallery-one__single-img position-relative inner">
+                                <img src="assets/images/gallery/gallery-v1-img1.jpg" alt="Project 5">
+                                <div class="overlay wow slideInUp" data-wow-delay="0.45s">
+                                    <div class="project-meta">
+                                        <h4>Packaging Design</h4>
+                                        <p>Brand • Packaging • Optimization</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 (big case) -->
+                    <div class="col-xl-8 col-lg-12 col-md-12 mix uiux project-card wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="gallery-one__single">
+                            <div class="gallery-one__single-img position-relative inner">
+                                <img src="assets/images/slides/slider-v1-img1.jpg" alt="Project 6">
+                                <div class="overlay wow slideInUp" data-wow-delay="0.5s">
+                                    <div class="project-meta">
+                                        <h4>Conventional Advertizement</h4>
+                                        <p>Strategy • Ads • Design</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="text-center mt-5 wow fadeInUp" data-wow-delay="0.55s" style="display:none;">
+                    <a class="thm-btn" href="#contact"><span class="txt">See full case studies</span></a>
+                </div>
+            </div>
+        </section>
+        <!-- ABOUT -->
+        <section id="about" class="about-one">
+            <div class="container">
+                <div class="about-one__inner">
+                    <div class="sec-title text-center tg-heading-subheading animation-style2">
+                        <div class="sec-title__tagline wow fadeInUp" data-wow-delay="0.15s">
+                            <p class="tg-element-title">about us</p>
+                            <div class="border-box"></div>
+                        </div>
+                        <h2 class="sec-title__title tg-element-title wow fadeInUp" data-wow-delay="0.25s">Boost your
+                            Brand's digital presence and equity through a mix of Campaigns, Content & Creativity .</h2>
+                        <p class="mt-3 wow fadeInUp" data-wow-delay="0.35s">Hello startups and SMEs! are you looking to
+                            automate your digital presence & content needs? just click the the link below and we'll
+                            Contact you ASAP.</p>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-4 wow fadeInLeft" data-wow-delay="0.4s">
+                            <div class="services-one__single">
+                                <div class="title-box2">
+                                    <h4>Note</h4>
+                                </div>
+                                <ul>
+                                    <li>We will gladly handle all your queries.</li>
+                                    <li>We support International Payment Gateways.</li>
+                                    <li>We provide complete aftersale support</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 wow fadeInRight" data-wow-delay="0.45s">
+                            <div class="btn-box"><a class="thm-btn" href="contact%20us.html" target="_blank"><span
+                                        class="txt">yes, i want to enquire.</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT / CTA -->
+        <section id="contact" class="slogan-one">
+            <div class="auto-container">
+                <div class="slogan-one__inner">
+                    <div class="container text-center">
+                        <div class="slogan-one__content-box">
+                            <div class="text-box tg-heading-subheading animation-style2 wow fadeInUp"
+                                data-wow-delay="0.15s">
+                                <h2 class="tg-element-title">It's time to<br> Frame your Brand.</h2>
+                            </div>
+                            <div class="btn-box mt-3 wow zoomIn" data-wow-delay="0.25s"><a class="thm-btn"
+                                    href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                    target="_blank"><span class="txt">info.framation@gmail.com</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer-one">
+            <!--Start Footer-->
+            <div class="footer">
+                <div class="container">
+                    <div class="footer-one__inner">
+                        <div class="logo-box text-center">
+                            <a href="index.html"><img src="framationbannerlogotransparent.png" alt="#"></a>
+                        </div>
+
+                        <div class="footer-one__contact">
+                            <div class="footer-one__contact-bdr"
+                                style="background-image: url(assets/images/footer/footer-v1-img1.png);"></div>
+                            <ul>
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-ringing"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Call anytime</p>
+                                        <h3><a href="tel:98210009630">+91 7415556478</a></h3>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-message"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Send email</p>
+                                        <h3><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                                target="_blank">info.framation@gmail.com</a></h3>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-placeholder"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Based in</p>
+                                        <h3>India</h3>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-one__social-links">
+                            <ul>
+                                <li><a href="https://x.com/FramationStudio" target="_blank"><span
+                                            class="icon-twitter"></span></a></li>
+                                <li><a href="https://www.facebook.com/people/Framation-Media/61584107330096/"
+                                        target="_blank"><span class="icon-facebook"></span></a></li>
+                                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                        target="_blank"><span class="icon-google-plus-logo"></span></a></li>
+                                <li><a href="https://www.instagram.com/framation.media/" target="_blank"><img
+                                            src="assets/instagram-white-icon.png" alt="Instagram"
+                                            style="width: 20px; vertical-align: middle;"></a></li>
+                                <li><a href="https://www.behance.net/framation_studio" target="_blank"><img
+                                            src="assets/behance_white.png" alt="Behance"
+                                            style="width: 20px; vertical-align: middle;"></a></li>
+                            </ul>
+                            <div class="border-box"></div>
+                        </div>
+
+                        <div class="footer-one__copyright">
+                            <p>© 2025 Framation. All rights reserved.</p>
+                        </div>
+
+                        <div class="scroll-to-top-box">
+                            <a href="#" data-target="html" class="scroll-to-target scroll-to-top">Back to Top</a>
+                            <div class="border-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Footer-->
+        </footer>
+
+    </div>
+
+    <div class="mobile-nav__wrapper">
+        <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+        <div class="mobile-nav__content">
+            <span class="mobile-nav__close mobile-nav__toggler">
+                <i class="icon-plus"></i>
+            </span>
+            <div class="logo-box">
+                <a href="index.html" aria-label="logo image">
+                    <img src="assets/images/resources/logo-1.png" alt="" />
+                </a>
+            </div>
+            <div class="mobile-nav__container"></div>
+            <ul class="mobile-nav__contact list-unstyled">
+                <li>
+                    <i class="fa fa-envelope"></i>
+                    <a href="mailto:info@example.com">info@example.com</a>
+                </li>
+                <li>
+                    <i class="fa fa-phone-alt"></i>
+                    <a href="tel:123456789">444 000 777 66</a>
+                </li>
+            </ul>
+            <div class="mobile-nav__social">
+                <a href="https://x.com/FramationStudio" target="_blank" class="fab fa-twitter"></a>
+                <a href="https://www.facebook.com/people/Framation-Media/61584107330096/" target="_blank"
+                    class="fab fa-facebook-square"></a>
+                <a href="#" class="fab fa-pinterest-p"></a>
+                <a href="https://www.instagram.com/framation.media/" target="_blank" class="fab fa-instagram"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-popup">
+        <div class="search-popup__overlay search-toggler"></div>
+        <div class="search-popup__content">
+            <form action="#">
+                <label for="search" class="sr-only">search here</label>
+                <input type="text" id="search" placeholder="Search Here..." />
+                <button type="submit" aria-label="search submit" class="thm-btn">
+                    <i class="icon-search-interface-symbol"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- scripts (reuse template scripts) -->
+    <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendors/isotope/isotope.js"></script>
+    <script src="assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="assets/vendors/swiper/swiper.min.js"></script>
+
+    <!-- wow (from template) -->
+    <script src="assets/vendors/wow/wow.js"></script>
+
+    <!-- GSAP + SplitText: copied from the services template to enable navbar text animation -->
+    <script src="assets/vendors/gsap/gsap.js"></script>
+    <script src="assets/vendors/gsap/ScrollTrigger.js"></script>
+    <script src="assets/vendors/gsap/SplitText.js"></script>
+
+    <script>
+        // Animate navigation menu items
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                var navMenuItems = document.querySelectorAll('.nav-menu .menu-text');
+                navMenuItems.forEach(function (el, i) {
+                    var split = new SplitText(el, { type: "chars", charsClass: "char" });
+                    gsap.from(split.chars, {
+                        duration: 0.6,
+                        y: 10,
+                        opacity: 0,
+                        stagger: 0.03,
+                        ease: "power3.out",
+                        delay: 0.12 + i * 0.03
+                    });
+                });
+            } catch (e) {
+                console.warn('Menu animation error', e);
+            }
+        });
+    </script>
+
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        /* Navigation open / close */
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const navToggle = document.getElementById('navToggle');
+        const navMenus = document.querySelectorAll('.nav-menu');
+        const navMenu = document.getElementById('navMenu');
+        const navMenuRight = document.getElementById('navMenuRight');
+
+        const originalLeftHTML = navMenu ? navMenu.innerHTML : '';
+        const originalRightHTML = navMenuRight ? navMenuRight.innerHTML : '';
+
+        function mobileLinkHandler(e) {
+            if (window.innerWidth <= 768) {
+                closeMenus();
+            }
+        }
+
+        function attachNavLinkHandlers() {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.removeEventListener('click', mobileLinkHandler);
+                link.addEventListener('click', mobileLinkHandler);
+            });
+        }
+
+        function combineMobileMenus() {
+            if (!navMenu || !navMenuRight) return;
+
+            if (window.innerWidth <= 768) {
+                if (!navMenu.dataset.combined) {
+                    const rightItems = Array.from(navMenuRight.children).map(li => li.cloneNode(true));
+                    rightItems.forEach(li => navMenu.appendChild(li));
+                    navMenuRight.style.display = 'none';
+                    navMenu.dataset.combined = 'true';
+                    attachNavLinkHandlers();
+                }
+            } else {
+                if (navMenu.dataset.combined) {
+                    navMenu.innerHTML = originalLeftHTML;
+                    navMenuRight.innerHTML = originalRightHTML;
+                    navMenuRight.style.display = 'flex';
+                    delete navMenu.dataset.combined;
+                    attachNavLinkHandlers();
+                }
+            }
+        }
+
+        combineMobileMenus();
+        attachNavLinkHandlers();
+
+        window.addEventListener('resize', () => {
+            combineMobileMenus();
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+
+        function openMenus() {
+            navMenus.forEach(menu => menu.classList.add('active'));
+            navToggle.classList.add('open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeMenus() {
+            navMenus.forEach(menu => menu.classList.remove('active'));
+            navToggle.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+        }
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                const anyOpen = navToggle.classList.contains('open');
+                if (anyOpen) closeMenus(); else openMenus();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' || e.key === 'Esc') {
+                    if (navToggle.classList.contains('open')) closeMenus();
+                }
+            });
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeMenus();
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    if (window.innerWidth <= 768) closeMenus();
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+    </script>
+    <script>
+        (function () {
+            function initNavAnimations() {
+                if (typeof gsap !== 'undefined') {
+                    try {
+                        gsap.to('.nav-menu a', {
+                            duration: 0.6,
+                            y: 0,
+                            opacity: 1,
+                            stagger: 0.06,
+                            ease: 'power3.out',
+                            overwrite: true
+                        });
+
+                        const animateActiveMenu = (menu) => {
+                            gsap.fromTo(menu.querySelectorAll('a'),
+                                { y: 16, opacity: 0 },
+                                { y: 0, opacity: 1, stagger: 0.06, duration: 0.45, ease: 'power2.out' }
+                            );
+                        };
+
+                        const navToggleBtn = document.getElementById('navToggle');
+                        if (navToggleBtn) {
+                            navToggleBtn.addEventListener('click', function () {
+                                setTimeout(() => {
+                                    document.querySelectorAll('.nav-menu.active')
+                                        .forEach(menu => animateActiveMenu(menu));
+                                }, 80);
+                            });
+                        }
+
+                        const observer = new MutationObserver((mutations) => {
+                            mutations.forEach(m => {
+                                if (m.type === 'attributes' && m.attributeName === 'class') {
+                                    const target = m.target;
+                                    if (target.classList.contains('active')) {
+                                        animateActiveMenu(target);
+                                    }
+                                }
+                            });
+                        });
+
+                        document.querySelectorAll('.nav-menu')
+                            .forEach(menu => observer.observe(menu, { attributes: true }));
+
+                    } catch (e) {
+                        document.querySelectorAll('.nav-menu a')
+                            .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                    }
+                } else {
+                    document.querySelectorAll('.nav-menu a')
+                        .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initNavAnimations);
+            } else {
+                initNavAnimations();
+            }
+        })();
+    </script>
+    <script>
+        // Initialize WOW animations
+        if (typeof WOW === 'function') {
+            new WOW().init();
+        }
+
+        // simple isotope filter for the portfolio grid (uses isotope included in template)
+        $(window).on('load', function () {
+            var $grid = $('#portfolio-grid').isotope({
+                itemSelector: '.mix',
+                layoutMode: 'fitRows'
+            });
+
+            $('.filter-controls a').on('click', function (e) {
+                e.preventDefault();
+                $('.filter-controls a').removeClass('active');
+                $(this).addClass('active');
+                var filter = $(this).data('filter');
+                if (filter === '*') $grid.isotope({ filter: '*' });
+                else $grid.isotope({ filter: '."' + filter + '"' });
+            });
+
+            // fix for correct filter classes: convert data-filter -> class
+            $('.filter-controls a').each(function () {
+                var f = $(this).data('filter');
+                if (f !== '*') $(this).attr('data-filter', f);
+            });
+        });
+    </script>
+
+    <script>
+        /* ---------------------------
+           Loading screen removal logic (copied exactly to preserve behavior)
+           --------------------------- */
+        (function () {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingVideo = document.getElementById('loading-video');
+
+            function removeLoadingScreen() {
+                if (!loadingScreen) return;
+                // fade
+                loadingScreen.classList.add('hide');
+                // remove the .loading marker so page becomes visible
+                document.body.classList.remove('loading');
+                setTimeout(() => {
+                    if (loadingScreen && loadingScreen.parentNode) {
+                        loadingScreen.parentNode.removeChild(loadingScreen);
+                    }
+                }, 450);
+            }
+
+            if (loadingVideo) {
+                loadingVideo.addEventListener('ended', removeLoadingScreen);
+                const playPromise = loadingVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        removeLoadingScreen();
+                    });
+                }
+            } else {
+                removeLoadingScreen();
+            }
+        })();
+    </script>
+    <!-- Product Viz Modal Structure -->
+    <div id="viz-modal">
+        <div class="viz-content">
+            <div class="viz-close">&times;</div>
+            <div class="viz-slideshow">
+                <button class="viz-nav viz-prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="viz-slide active">
+                    <img src="assets/images/gallery/gallery-v1-img1.jpg" alt="Visualization 1">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img2.jpg" alt="Visualization 2">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img3.jpg" alt="Visualization 3">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/slides/slider-v1-img1.jpg" alt="Visualization 4">
+                </div>
+                <button class="viz-nav viz-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="viz-text">
+                <h2>Product Visualization</h2>
+                <p>High-fidelity 3D renderings and product mockups that bring your concepts to life. We focus on
+                    photorealistic details, perfect lighting, and brand-aligned aesthetics to ensure your product looks
+                    its absolute best before it even hits the manufacturing line.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            function initSlideshow(triggerId, modalId) {
+                const card = document.getElementById(triggerId);
+                const modal = document.getElementById(modalId);
+                if (!card || !modal) return;
+
+                // Scope selectors to the specific modal
+                const closeBtn = modal.querySelector('.viz-close');
+                const slides = modal.querySelectorAll('.viz-slide');
+                const prevBtn = modal.querySelector('.viz-prev');
+                const nextBtn = modal.querySelector('.viz-next');
+                let currentSlide = 0;
+
+                // Open Modal
+                card.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    modal.classList.add('active');
+                });
+
+                // Close Modal
+                closeBtn.addEventListener('click', function () {
+                    modal.classList.remove('active');
+                });
+
+                // Close on click outside
+                modal.addEventListener('click', function (e) {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+
+                // Slideshow Logic
+                function showSlide(index) {
+                    slides.forEach(slide => slide.classList.remove('active'));
+
+                    if (index >= slides.length) currentSlide = 0;
+                    else if (index < 0) currentSlide = slides.length - 1;
+                    else currentSlide = index;
+
+                    slides[currentSlide].classList.add('active');
+                }
+
+                nextBtn.addEventListener('click', function () {
+                    showSlide(currentSlide + 1);
+                });
+
+                prevBtn.addEventListener('click', function () {
+                    showSlide(currentSlide - 1);
+                });
+
+                // Keyboard nav
+                document.addEventListener('keydown', function (e) {
+                    if (!modal.classList.contains('active')) return;
+                    if (e.key === 'Escape') modal.classList.remove('active');
+                    if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
+                    if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+                });
+            }
+
+            // Initialize both slideshows
+            initSlideshow('product-viz-card', 'viz-modal');
+            initSlideshow('product-mockups-card', 'mockups-modal');
+            initSlideshow('infographics-card', 'infographics-modal');
+            initSlideshow('packaging-card', 'packaging-modal');
+        });
+    </script>
+
+    <!-- Product Mockups Modal Structure -->
+    <div id="mockups-modal">
+        <div class="viz-content">
+            <div class="viz-close">&times;</div>
+            <div class="viz-slideshow">
+                <button class="viz-nav viz-prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="viz-slide active">
+                    <img src="assets/images/gallery/gallery-v1-img2.jpg" alt="Mockup 1">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img1.jpg" alt="Mockup 2">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img3.jpg" alt="Mockup 3">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/slides/slider-v1-img1.jpg" alt="Mockup 4">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img4.jpg" alt="Mockup 5">
+                </div>
+                <button class="viz-nav viz-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="viz-text">
+                <h2>Product Mockups</h2>
+                <p>We craft highly detailed product mockups that help you visualize the final outcome before production.
+                    Whether it's packaging, branding materials, or digital products, our mockups serve as the perfect
+                    tool for presentations and marketing collateral.</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Ensure the new modal has the same base styles as #viz-modal */
+        #mockups-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 20000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #mockups-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Infographics modal uses same base styles */
+        #infographics-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 20000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #infographics-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Infographics Modal Structure -->
+    <div id="infographics-modal">
+        <div class="viz-content">
+            <div class="viz-close">&times;</div>
+            <div class="viz-slideshow">
+                <button class="viz-nav viz-prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="viz-slide active">
+                    <img src="assets/images/gallery/gallery-v1-img3.jpg" alt="Infographic 1">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img1.jpg" alt="Infographic 2">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img2.jpg" alt="Infographic 3">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/slides/slider-v1-img1.jpg" alt="Infographic 4">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img4.jpg" alt="Infographic 5">
+                </div>
+                <button class="viz-nav viz-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="viz-text">
+                <h2>Infographics</h2>
+                <p>Transform complex data into compelling visual stories. Our infographics combine clear information
+                    hierarchy with engaging design to help your audience understand and retain key messages instantly.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Packaging modal uses same base styles */
+        #packaging-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 20000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #packaging-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Packaging Modal Structure -->
+    <div id="packaging-modal">
+        <div class="viz-content">
+            <div class="viz-close">&times;</div>
+            <div class="viz-slideshow">
+                <button class="viz-nav viz-prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="viz-slide active">
+                    <img src="assets/images/gallery/gallery-v1-img1.jpg" alt="Packaging 1">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img2.jpg" alt="Packaging 2">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img3.jpg" alt="Packaging 3">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/slides/slider-v1-img1.jpg" alt="Packaging 4">
+                </div>
+                <div class="viz-slide">
+                    <img src="assets/images/gallery/gallery-v1-img4.jpg" alt="Packaging 5">
+                </div>
+                <button class="viz-nav viz-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="viz-text">
+                <h2>Packaging Design</h2>
+                <p>Create packaging that stands out on the shelf. We combine structural design with compelling graphics
+                    to create unboxing experiences that delight customers and reinforce your brand's quality.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

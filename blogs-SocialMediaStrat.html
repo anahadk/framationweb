@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framation — Social Media Strategy</title>
+
+    <!-- Template fonts & styles -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="assets/vendors/animate/animate.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+    <link rel="stylesheet" href="assets/vendors/thm-icons/style.css" />
+
+    <style>
+        /* NAVBAR STYLES (Copied from template) */
+        .navbar .nav-menu a,
+        .navbar .nav-menu a span,
+        .navbar .nav-menu a:visited {
+            color: #ffffff !important;
+        }
+
+        .navbar .nav-menu a:hover,
+        .navbar .nav-menu a:hover span {
+            color: #ff0040 !important;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10001;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            height: 90px;
+            position: relative;
+            gap: 20px;
+            transition: height 0.3s ease;
+        }
+
+        .navbar.scrolled .navbar-container {
+            height: 60px;
+        }
+
+        .navbar.scrolled .logo {
+            height: 35px;
+        }
+
+        .logo {
+            justify-self: center;
+            align-self: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+            flex: 0 0 auto;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            width: 40px;
+            height: 36px;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 2000;
+            position: absolute;
+            right: -20px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: white;
+            transition: 0.25s ease;
+            display: block;
+        }
+
+        .nav-toggle.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        @media (max-width: 1024px) {
+            .navbar-container {
+                padding: 0 10px;
+            }
+
+            .nav-menu {
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                display: flex;
+                justify-content: center;
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .logo {
+                position: relative;
+                left: auto;
+                transform: none;
+                z-index: 999;
+                height: 44px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: left 0.28s cubic-bezier(.2, .9, .2, 1);
+                padding: 40px 20px;
+                gap: 5px;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 18px;
+                letter-spacing: 1px;
+                display: block;
+                padding: 12px 0;
+                color: #fff !important;
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            .nav-menu.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                height: 38px;
+            }
+
+            .nav-menu a {
+                font-size: 16px;
+                padding: 10px 0;
+            }
+
+            .nav-toggle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .nav-toggle span {
+                width: 24px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-menu a {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        .nav-menu a:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.12);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .char {
+            display: inline-block;
+            white-space: pre;
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        body.loading>*:not(#loading-screen):not(.navbar) {
+            visibility: hidden;
+        }
+
+        body.loading .navbar {
+            visibility: visible !important;
+        }
+
+        #loading-screen.hide {
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            pointer-events: none;
+        }
+
+        #loading-video {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            max-height: 100vh;
+        }
+
+        /* Footer Text Color Override */
+        .footer-one,
+        .footer-one .footer,
+        .footer-one .footer-one__inner,
+        .footer-one * {
+            color: #fff !important;
+        }
+
+        .footer-one a {
+            color: #fff !important;
+        }
+
+        .footer-one .icon-box span {
+            fill: currentColor !important;
+            color: #fff !important;
+        }
+
+        /* Page Background */
+        .page-wrapper {
+            background: #000;
+            color: #fff;
+        }
+
+        /* FIX FOR ICONS: Override the global font reset */
+        [class^="icon-"],
+        [class*=" icon-"] {
+            font-family: 'icomoon' !important;
+        }
+
+        /* FIX FOR FONTAWESOME ICONS if used */
+        .fa,
+        .fab,
+        .fas,
+        .far {
+            font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome" !important;
+        }
+
+        /* FIX FOR BACK TO TOP TEXT VISIBILITY */
+        .scroll-to-top {
+            color: #ffffff !important;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* ===========================
+           Footer: force white text/icons
+           =========================== */
+        .footer-one,
+        .footer-one .footer,
+        .footer-one .footer-one__inner,
+        .footer-one * {
+            color: #fff !important;
+        }
+
+        .footer-one a,
+        .footer-one a:visited,
+        .footer-one .footer-one__menu a {
+            color: #fff !important;
+        }
+
+        .footer-one .icon-box,
+        .footer-one .icon-box span,
+        .footer-one .footer-one__social-links ul li a,
+        .footer-one .scroll-to-top-box a {
+            color: #fff !important;
+            fill: currentColor !important;
+        }
+
+        .footer-one .logo-box img {
+            /* keep the logo image as-is; if you want a white version, swap the image file */
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="loading">
+    <div id="loading-screen">
+        <video id="loading-video" autoplay muted playsinline>
+            <source src="FramationLoadingScreen.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="page-wrapper">
+        <!-- NAVBAR -->
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="navbar-container">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html"><span class="menu-text">HOME</span></a></li>
+                    <li><a href="aboutus.html"><span class="menu-text">ABOUT</span></a></li>
+                    <li><a href="services.html"><span class="menu-text">SERVICES</span></a></li>
+                </ul>
+                <a href="index.html" class="logo"><img src="framationbannerlogotransparent.png"
+                        alt="Framation logo"></a>
+                <ul class="nav-menu" id="navMenuRight">
+                    <li><a href="works.html"><span class="menu-text">WORKS</span></a></li>
+                    <li><a href="blogs.html"><span class="menu-text">BLOGS</span></a></li>
+                    <li><a href="contact%20us.html"><span class="menu-text">CONTACT</span></a></li>
+                </ul>
+                <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+            </div>
+        </nav>
+
+        <main class="page-wrapper" style="padding-top: 120px;">
+            <section class="blog-details" style="padding: 60px 0;">
+                <div class="container" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+                    <!-- Blog Header -->
+                    <div class="blog-header mb-5 text-center">
+                        <span class="badge bg-secondary mb-3"
+                            style="background-color: rgba(255,255,255,0.1) !important; color: #fff; text-transform: uppercase; letter-spacing: 1px;">Strategy</span>
+                        <h1 style="font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">A Simple
+                            Social Media Strategy to Actually Boost Organic Growth</h1>
+                        <div class="meta" style="color: #aaa; font-size: 0.9rem;">
+                            <span><i class="far fa-calendar"></i> January, 2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Blog Image -->
+                    <div class="blog-image mb-5">
+                        <img src="assets/SMMstrat.png" alt="Social Media Strategy" class="img-fluid rounded"
+                            style="width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+                    </div>
+
+                    <!-- Blog Content -->
+                    <div class="blog-content" style="font-size: 1.1rem; line-height: 1.8; color: #ddd;">
+                        <h2 class="text-white mt-5 mb-4">Phase 1 - Understanding the Consumer Mindset</h2>
+                        <p class="mb-4">Most organisations in the digital age are focusing on producing content that is
+                            mostly focused on brand information and campaigns without realising that customers do not
+                            visit Facebook or Instagram profiles for information. The key to using these platforms is to
+                            increase brand awareness rather than directly marketing the product to the consumer.</p>
+
+                        <h2 class="text-white mt-5 mb-4">Phase 2 - Creating Shareable Content</h2>
+                        <p class="mb-4">Instagram and many other platforms, frankly, do not give a damn about the
+                            content you are posting; however, they are certainly interested in the content you share.
+                            Try this as an experiment: mark 10 reels as 'interested' and then share 5 different reels
+                            with your friends. You will notice that your feed will be more oriented towards the content
+                            you share rather than the content you deliberately selected as 'interested', hence
+                            organisations should focus on creating content that is shared more, rather than just viewed
+                            and forgotten.</p>
+
+                        <h2 class="text-white mt-5 mb-4">Phase 3 - Create Memorable Content</h2>
+                        <p class="mb-4">In Jeffrey Pfeffer's 'Power: why some people have it, and some don't ', we Learn
+                            a precious quote: "you can't choose what you can't remember" hence, modern marketing should
+                            not focus on rapidly producing content or increasing brand awareness, but rather should
+                            focus on creating memorable content that can position the brand in the public's mind.</p>
+
+                        <h2 class="text-white mt-5 mb-4">Phase 4 - Measuring Through a Different Lens</h2>
+                        <p class="mb-4">Stop prioritising:</p>
+                        <ul style="list-style-type: none; padding-left: 0; color: #ddd;">
+                            <li>Likes</li>
+                            <li>Follower count</li>
+                        </ul>
+                        <p class="mb-4">Start prioritising:</p>
+                        <ul style="list-style-type: none; padding-left: 0; color: #ddd;">
+                            <li>Shares</li>
+                            <li>Profile visits</li>
+                            <li>DMs</li>
+                            <li>Saves</li>
+                        </ul>
+                        <p class="mb-4">These are growth signals.</p>
+
+                        <h2 class="text-white mt-5 mb-4">Phase 5 - Awareness First, Offers Second</h2>
+                        <p class="mb-4">Do not open conversations with selling.</p>
+                        <p class="mb-4">Instead:</p>
+                        <ul style="list-style-type: none; padding-left: 0; color: #ddd;">
+                            <li>Enter feeds with value</li>
+                            <li>Stay with consistency</li>
+                            <li>Earn familiarity</li>
+                        </ul>
+                        <p class="mb-4">Once attention is built:</p>
+                        <ul style="list-style-type: none; padding-left: 0; color: #ddd;">
+                            <li>Your profile explains who you help</li>
+                            <li>Pinned content explains your offer</li>
+                            <li>Bio points toward next step</li>
+                        </ul>
+                        <p class="mb-4">Selling becomes frictionless.</p>
+                    </div>
+
+                    <div class="mt-5 text-center">
+                        <a href="blogs.html" class="thm-btn" style="padding: 12px 30px;">Back to Blogs</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <!-- START: Footer (FULL About Us footer copied exactly as requested) -->
+            <footer class="footer-one">
+                <!--Start Footer-->
+                <div class="footer">
+                    <div class="container">
+                        <div class="footer-one__inner">
+                            <div class="logo-box text-center">
+                                <a href="index.html"><img src="framationbannerlogotransparent.png" alt="#"></a>
+                            </div>
+
+                            <div class="footer-one__contact">
+                                <div class="footer-one__contact-bdr"
+                                    style="background-image: url(assets/images/footer/footer-v1-img1.png);"></div>
+                                <ul>
+                                    <li>
+                                        <div class="icon-box">
+                                            <span class="icon-ringing"></span>
+                                        </div>
+
+                                        <div class="text-box">
+                                            <p>Call anytime</p>
+                                            <h3><a href="tel:+917415556478">+91 7415556478</a></h3>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="icon-box">
+                                            <span class="icon-message"></span>
+                                        </div>
+
+                                        <div class="text-box">
+                                            <p>Send email</p>
+                                            <h3><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                                    target="_blank">info.framation@gmail.com</a></h3>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="icon-box">
+                                            <span class="icon-placeholder"></span>
+                                        </div>
+
+                                        <div class="text-box">
+                                            <p>Based in</p>
+                                            <h3>India</h3>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="footer-one__social-links">
+                                <ul>
+                                    <li><a href="https://x.com/FramationStudio" target="_blank"><span
+                                                class="icon-twitter"></span></a></li>
+                                    <li><a href="https://www.facebook.com/people/Framation-Media/61584107330096/"
+                                            target="_blank"><span class="icon-facebook"></span></a></li>
+                                    <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                            target="_blank"><span class="icon-google-plus-logo"></span></a></li>
+                                    <li><a href="https://www.instagram.com/framation.media/" target="_blank"><img
+                                                src="assets/instagram-white-icon.png" alt="Instagram"
+                                                style="width: 20px; vertical-align: middle;"></a></li>
+                                    <li><a href="https://www.behance.net/framation_studio" target="_blank"><img
+                                                src="assets/behance_white.png" alt="Behance"
+                                                style="width: 20px; vertical-align: middle;"></a></li>
+                                </ul>
+                                <div class="border-box"></div>
+                            </div>
+
+                            <div class="footer-one__copyright">
+                                <p>© 2025 Framation. All rights reserved.</p>
+                            </div>
+
+                            <div class="scroll-to-top-box">
+                                <a href="#" data-target="html" class="scroll-to-target scroll-to-top">Back to Top</a>
+                                <div class="border-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Footer-->
+            </footer>
+            <!-- END: Footer -->
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendors/gsap/gsap.js"></script>
+    <script src="assets/vendors/gsap/SplitText.js"></script>
+    <script src="assets/vendors/wow/wow.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        // Init WOW
+        if (typeof WOW === 'function') new WOW().init();
+
+        /* Loading screen removal & Nav Animation */
+        (function () {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingVideo = document.getElementById('loading-video');
+            function removeLoadingScreen() {
+                if (!loadingScreen) return;
+                loadingScreen.classList.add('hide');
+                document.body.classList.remove('loading');
+                setTimeout(() => { if (loadingScreen) loadingScreen.remove(); }, 450);
+            }
+            if (loadingVideo) {
+                loadingVideo.addEventListener('ended', removeLoadingScreen);
+                loadingVideo.play().catch(removeLoadingScreen);
+            } else removeLoadingScreen();
+
+            // Nav Animation
+            if (typeof gsap !== 'undefined') {
+                gsap.to('.nav-menu a', { duration: 0.6, y: 0, opacity: 1, stagger: 0.06, ease: 'power3.out' });
+            }
+        })();
+
+        // Nav Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenus = document.querySelectorAll('.nav-menu');
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navMenus.forEach(m => m.classList.toggle('active'));
+                navToggle.classList.toggle('open');
+                document.body.classList.toggle('no-scroll');
+            });
+        }
+    </script>
+    <script>
+        /* FORCE SCROLL TO TOP functionality in case custom.js has issues */
+        $(window).on('scroll', function () {
+            if ($(".scroll-to-top").length) {
+                var strickyScrollPos = 100;
+                if ($(window).scrollTop() > strickyScrollPos) {
+                    $(".scroll-to-top").fadeIn(500);
+                } else if ($(this).scrollTop() <= strickyScrollPos) {
+                    $(".scroll-to-top").fadeOut(500);
+                }
+            }
+        });
+
+        $(".scroll-to-top").off('click').on("click", function (e) {
+            e.preventDefault();
+            $("html, body").animate({ scrollTop: 0 }, 1000);
+        });
+    </script>
+</body>
+
+</html>

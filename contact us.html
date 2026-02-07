@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framation — Contact</title>
+
+    <!-- reuse template fonts & vendors (assumes same assets folder) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400;1,9..40,700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="assets/vendors/thm-icons/style.css" />
+    <link rel="stylesheet" href="assets/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="assets/vendors/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="assets/vendors/nice-select/nice-select.css" />
+
+    <!-- animate (from template) -->
+    <link rel="stylesheet" href="assets/vendors/animate/animate.min.css" />
+
+    <!-- reuse main template styles -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <style>
+        /* FIX FOR ICONS: Override the global font reset */
+        [class^="icon-"],
+        [class*=" icon-"] {
+            font-family: 'icomoon' !important;
+        }
+
+        /* FIX FOR FONTAWESOME ICONS if used */
+        .fa,
+        .fab,
+        .fas,
+        .far {
+            font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome" !important;
+        }
+
+        /* FIX FOR BACK TO TOP TEXT VISIBILITY */
+        .scroll-to-top {
+            color: #ffffff !important;
+        }
+
+        /* --------------------------
+           NAVBAR STYLES
+           -------------------------- */
+        /* FORCE NAV MENU TEXT WHITE (ALL STATES) */
+        .navbar .nav-menu a,
+        .navbar .nav-menu a span,
+        .navbar .nav-menu a:visited {
+            color: #ffffff !important;
+        }
+
+        /* NAVBAR HOVER COLOR — FIXED */
+        .navbar .nav-menu a:hover,
+        .navbar .nav-menu a:hover span {
+            color: #ff0040 !important;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10001;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            height: 90px;
+            position: relative;
+            transition: height 0.3s ease;
+            gap: 20px;
+        }
+
+        /* Shrink navbar on scroll */
+        .navbar.scrolled .navbar-container {
+            height: 60px;
+        }
+
+        .auto-container,
+        .container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* Logo */
+        .logo {
+            justify-self: center;
+            align-self: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .navbar.scrolled .logo {
+            height: 35px;
+        }
+
+        /* Menu Styling */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Button */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            width: 40px;
+            height: 36px;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 2000;
+            position: absolute;
+            right: -20px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: white;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            display: block;
+        }
+
+        /* Hamburger to X animation */
+        .nav-toggle.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .navbar-container {
+                padding: 0 10px;
+            }
+
+            .nav-menu {
+                gap: 28px;
+            }
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .navbar-container {
+                display: flex;
+                justify-content: center;
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .logo {
+                position: relative;
+                left: auto;
+                transform: none;
+                z-index: 999;
+                height: 44px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: left 0.28s cubic-bezier(.2, .9, .2, 1);
+                padding: 40px 20px;
+                gap: 5px;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 18px;
+                letter-spacing: 1px;
+                display: block;
+                padding: 12px 0;
+                color: #fff !important;
+                opacity: 0;
+                transform: translateY(16px);
+                will-change: transform, opacity;
+            }
+
+            /* When menu is active, GSAP animates these */
+            .nav-menu.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* EXTRA SMALL */
+        @media (max-width: 480px) {
+            .logo {
+                height: 38px;
+            }
+
+            .nav-menu a {
+                font-size: 16px;
+                padding: 10px 0;
+            }
+
+            .nav-toggle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .nav-toggle span {
+                width: 24px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-menu a {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Accessibility */
+        .nav-menu a:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.12);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* helpers for split text to avoid overflow during animation */
+        .char {
+            display: inline-block;
+            line-height: 1;
+            white-space: pre;
+            transform-origin: center;
+            backface-visibility: hidden;
+        }
+
+        /* small visual polish: reduce flicker for animated elements */
+        .menu-text,
+        .hero-title,
+        .hero-sub {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ====================== LOADING SCREEN ====================== */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+        }
+
+        body.loading>*:not(#loading-screen):not(.navbar) {
+            visibility: hidden;
+        }
+
+        body.loading .navbar {
+            visibility: visible !important;
+        }
+
+        #loading-screen.hide {
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            pointer-events: none;
+        }
+
+        #loading-video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            max-height: 100vh;
+        }
+
+        /* Contact Welcome Section */
+        .contact-welcome {
+            background: linear-gradient(180deg, rgba(18, 23, 38, 0.95), rgba(22, 28, 44, 0.95));
+            color: #f8fafc;
+            padding: 36px;
+            border-radius: 16px;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.45);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-welcome__accent {
+            position: absolute;
+            right: -80px;
+            top: -50px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.04), transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.02), transparent 40%);
+            transform: rotate(25deg);
+            pointer-events: none;
+        }
+
+        .contact-welcome h3 {
+            font-family: "Lora", serif;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 28px;
+            letter-spacing: -0.3px;
+        }
+
+        .contact-welcome p {
+            font-family: "DM Sans", sans-serif;
+            font-size: 15px;
+            margin-bottom: 18px;
+            line-height: 1.6;
+            color: rgba(248, 250, 252, 0.9);
+        }
+
+        .contact-quick {
+            margin-top: 8px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 18px rgba(3, 7, 18, 0.35);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .pill:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .pill:active {
+            transform: translateY(0);
+        }
+
+        .contact-welcome .cta {
+            margin-top: 20px;
+        }
+
+        /* Form Feedback */
+        .contact-feedback {
+            display: none;
+            margin-top: 16px;
+            font-weight: 500;
+            padding: 12px 16px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .contact-feedback.success {
+            color: #ffffff;
+            background: rgba(34, 197, 94, 0.95);
+        }
+
+        .contact-feedback.error {
+            color: #ffffff;
+            background: rgba(239, 68, 68, 0.95);
+        }
+
+        .input-box input,
+        .input-box textarea {
+            transition: all 200ms ease;
+        }
+
+        .input-box input:focus,
+        .input-box textarea:focus {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        /* Add spacing for contact section to account for navbar */
+        .contact-page {
+            padding-top: 120px;
+        }
+
+        /* keep footer small on portfolio page */
+        .footer-one {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        /* FORCE SELECT & OPTION TEXT BLACK */
+        .nice-select,
+        .nice-select .current,
+        .nice-select .list .option {
+            color: #000000 !important;
+        }
+
+        /* Ensure the list background is white so black text is visible */
+        .nice-select .list {
+            background-color: #ffffff !important;
+        }
+
+        @media (max-width: 575px) {
+            .contact-welcome {
+                padding: 22px;
+                min-height: 300px;
+            }
+
+            .contact-welcome h3 {
+                font-size: 22px;
+            }
+
+            .contact-feedback {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body class="loading">
+    <div id="loading-screen">
+        <video id="loading-video" autoplay muted playsinline>
+            <source src="FramationLoadingScreen.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="page-wrapper">
+
+        <!-- NAVBAR -->
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="navbar-container">
+
+                <!-- LEFT MENU -->
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html"><span class="menu-text">HOME</span></a></li>
+                    <li><a href="aboutus.html"><span class="menu-text">ABOUT</span></a></li>
+                    <li><a href="services.html"><span class="menu-text">SERVICES</span></a></li>
+                </ul>
+
+                <!-- LOGO -->
+                <a href="index.html" class="logo" aria-label="Framation home link">
+                    <img src="framationbannerlogotransparent.png" alt="Framation logo">
+                </a>
+
+                <!-- RIGHT MENU -->
+                <ul class="nav-menu" id="navMenuRight">
+                    <li><a href="works.html"><span class="menu-text">WORKS</span></a></li>
+                    <li><a href="blogs.html"><span class="menu-text">BLOGS</span></a></li>
+                    <li><a href="contact%20us.html"><span class="menu-text">CONTACT</span></a></li>
+                </ul>
+
+                <!-- MOBILE TOGGLE -->
+                <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"
+                    aria-controls="navMenu navMenuRight">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- CONTACT PAGE -->
+        <section id="contact" class="contact-page">
+            <div class="container">
+                <div class="row">
+                    <!-- Contact Welcome -->
+                    <div class="col-xl-5">
+                        <div class="contact-welcome wow fadeInLeft" data-wow-duration="1200ms" data-wow-delay="300ms">
+                            <div class="contact-welcome__accent" aria-hidden="true"></div>
+
+                            <h3 class="wow fadeInUp" data-wow-delay="350ms" data-wow-duration="900ms">
+                                Hello — we'd love to hear from you
+                            </h3>
+
+                            <p class="wow fadeInUp" data-wow-delay="500ms" data-wow-duration="900ms">
+                                Whether you have a question about a project, want to explore ideas, or just want to say
+                                hi — our team is ready. We believe simple conversations lead to great work. Tell us
+                                what you're dreaming of and we'll help build it.
+                            </p>
+
+                            <p class="wow fadeInUp" data-wow-delay="600ms"
+                                style="font-size: 12px; opacity: 0.8; margin: 4px 0 2px; text-transform:uppercase; letter-spacing:1px; font-weight:600;">
+                                <i class="fa fa-mouse-pointer" style="margin-right:4px;"></i> Click to copy
+                            </p>
+
+                            <div class="contact-quick">
+                                <span class="pill wow fadeInUp" data-wow-delay="650ms" data-wow-duration="700ms"
+                                    onclick="copyToClipboard(this, '+917415556478')" title="Click to copy">
+                                    <i class="icon-ringing" aria-hidden="true"></i>
+                                    +91 741 555 6478
+                                </span>
+
+                                <span class="pill wow fadeInUp" data-wow-delay="750ms" data-wow-duration="700ms"
+                                    onclick="copyToClipboard(this, 'info.framation@gmail.com')" title="Click to copy">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    info.framation@gmail.com
+                                </span>
+                            </div>
+
+                            <div class="cta wow fadeInUp" data-wow-delay="900ms" data-wow-duration="700ms">
+                                <a class="thm-btn" href="https://wa.me/917415556478" target="_blank"
+                                    aria-label="Chat on WhatsApp">
+                                    <span class="txt">Start a Conversation</span>
+                                    <span class="bdrl"></span>
+                                    <span class="bdrr"></span>
+                                </a>
+                                <p style="font-size: 12px; opacity: 0.7; margin-top: 10px;">
+                                    Click to start a WhatsApp conversation
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="col-xl-7">
+                        <div class="contact-one__form wow fadeInRight" data-wow-duration="1200ms"
+                            data-wow-delay="400ms">
+                            <div class="sec-title tg-heading-subheading animation-style2">
+                                <div class="sec-title__tagline">
+                                    <p class="tg-element-title">contact</p>
+                                    <div class="border-box"></div>
+                                </div>
+                                <h2 class="sec-title__title tg-element-title">Get In Touch — Let's build something
+                                    great<br>
+                                    together.
+                                </h2>
+                            </div>
+
+                            <form id="google-sheet-form" class="default-form2" action="assets/inc/sendemail.php"
+                                method="post" novalidate>
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                        <div class="input-box">
+                                            <input id="name" type="text" name="name" placeholder="NAME *" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                        <div class="input-box">
+                                            <input id="email" type="email" name="email" placeholder="EMAIL *" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                        <div class="input-box">
+                                            <input id="phone" type="text" name="phone" placeholder="PHONE *" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                        <div class="input-box">
+                                            <select name="service" id="service" class="nice-select"
+                                                title="Select Service">
+                                                <option value="" disabled selected>SELECT SERVICE</option>
+                                                <option value="web">Digital Basics</option>
+                                                <option value="branding">Brand Builder</option>
+                                                <option value="ads">Digital PR</option>
+                                                <option value="other">Other enquiry</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="input-box">
+                                            <textarea id="message" name="message" placeholder="WRITE YOUR MESSAGE *"
+                                                required></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                        <div class="contact-one__form-btn">
+                                            <button id="contact-submit" class="thm-btn contact-submit" type="submit">
+                                                <span class="txt">Send Message</span>
+                                                <span class="bdrl"></span>
+                                                <span class="bdrr"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="contact-success" class="contact-feedback success animated fadeInUp">
+                                    Thank you — your message has been sent. We'll get back to you shortly.
+                                </div>
+                                <div id="contact-error" class="contact-feedback error animated shake">
+                                    Oops — something went wrong. Please check the form and try again.
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer-one">
+            <!--Start Footer-->
+            <div class="footer">
+                <div class="container">
+                    <div class="footer-one__inner">
+                        <div class="logo-box text-center">
+                            <a href="index.html"><img src="framationbannerlogotransparent.png" alt="#"></a>
+                        </div>
+
+                        <div class="footer-one__contact">
+                            <div class="footer-one__contact-bdr"
+                                style="background-image: url(assets/images/footer/footer-v1-img1.png);"></div>
+                            <ul>
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-ringing"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Call anytime</p>
+                                        <h3><a href="tel:98210009630">+91 7415556478</a></h3>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-message"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Send email</p>
+                                        <h3><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                                target="_blank">info.framation@gmail.com</a></h3>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="icon-box">
+                                        <span class="icon-placeholder"></span>
+                                    </div>
+
+                                    <div class="text-box">
+                                        <p>Based in</p>
+                                        <h3>India</h3>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-one__social-links">
+                            <ul>
+                                <li><a href="https://x.com/FramationStudio" target="_blank"><span
+                                            class="icon-twitter"></span></a></li>
+                                <li><a href="https://www.facebook.com/people/Framation-Media/61584107330096/"
+                                        target="_blank"><span class="icon-facebook"></span></a></li>
+                                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info.framation@gmail.com"
+                                        target="_blank"><span class="icon-google-plus-logo"></span></a></li>
+                                <li><a href="https://www.instagram.com/framation.media/" target="_blank"><img
+                                            src="assets/instagram-white-icon.png" alt="Instagram"
+                                            style="width: 20px; vertical-align: middle;"></a></li>
+                                <li><a href="https://www.behance.net/framation_studio" target="_blank"><img
+                                            src="assets/behance_white.png" alt="Behance"
+                                            style="width: 20px; vertical-align: middle;"></a></li>
+                            </ul>
+                            <div class="border-box"></div>
+                        </div>
+
+                        <div class="footer-one__copyright">
+                            <p>© 2025 Framation. All rights reserved.</p>
+                        </div>
+
+                        <div class="scroll-to-top-box">
+                            <a href="#" data-target="html" class="scroll-to-target scroll-to-top">Back to Top</a>
+                            <div class="border-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Footer-->
+        </footer>
+
+    </div>
+
+    <!-- scripts -->
+    <script src="assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="assets/vendors/swiper/swiper.min.js"></script>
+    <script src="assets/vendors/jquery-validate/jquery.validate.min.js"></script>
+    <script src="assets/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="assets/vendors/wow/wow.js"></script>
+    <script src="assets/vendors/gsap/gsap.js"></script>
+    <script src="assets/vendors/gsap/ScrollTrigger.js"></script>
+    <script src="assets/vendors/gsap/SplitText.js"></script>
+
+    <script>
+        // Animate navigation menu items
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                var navMenuItems = document.querySelectorAll('.nav-menu .menu-text');
+                navMenuItems.forEach(function (el, i) {
+                    var split = new SplitText(el, { type: "chars", charsClass: "char" });
+                    gsap.from(split.chars, {
+                        duration: 0.6,
+                        y: 10,
+                        opacity: 0,
+                        stagger: 0.03,
+                        ease: "power3.out",
+                        delay: 0.12 + i * 0.03
+                    });
+                });
+            } catch (e) {
+                console.warn('Menu animation error', e);
+            }
+        });
+    </script>
+
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+        /* GOOGLE SHEETS FORM SUBMISSION */
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyMBQnydNq5JrcrH-_d-Sr3OtrCdsg0zf0Ir1cRxE8Du0pSrXZPmVxTpw4GbGTHdN_a/exec";
+        const form = document.querySelector('#google-sheet-form');
+        const successMsg = document.querySelector('#contact-success');
+        const errorMsg = document.querySelector('#contact-error');
+        const submitBtn = document.querySelector('#contact-submit');
+
+        if (form) {
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+
+                // Validate form inputs
+                if (!form.checkValidity()) {
+                    // Show browser validation bubbles
+                    form.reportValidity();
+                    return; // Stop submission
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.querySelector('.txt').innerText = "Sending...";
+
+                // Construct JSON payload based on reference code
+                const payload = {
+                    name: form.name.value,
+                    email: form.email.value,
+                    phonenumber: form.phone.value, // Map form name='phone' to expected 'phonenumber'
+                    message: form.message.value,
+                    service: form.service ? form.service.value : ""
+                };
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    // Using text/plain prevents CORS preflight issues with Google Apps Script,
+                    // but the payload handles as JSON on the server if parsing properly.
+                    // The user's reference used application/json, but we'll use text/plain 
+                    // content-type to ensure delivery without preflight failure, 
+                    // while sending a valid JSON string body.
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify(payload)
+                })
+                    .then(response => {
+                        submitBtn.disabled = false;
+                        submitBtn.querySelector('.txt').innerText = "Send Message";
+                        successMsg.style.display = 'block';
+                        successMsg.classList.add('fadeInUp');
+                        form.reset();
+                        setTimeout(() => {
+                            successMsg.style.display = 'none';
+                        }, 5000);
+                    })
+                    .catch(error => {
+                        submitBtn.disabled = false;
+                        submitBtn.querySelector('.txt').innerText = "Send Message";
+                        errorMsg.style.display = 'block';
+                        errorMsg.classList.add('shake');
+                        console.error('Error!', error.message);
+                        setTimeout(() => {
+                            errorMsg.style.display = 'none';
+                        }, 5000);
+                    });
+            });
+        }
+    </script>
+
+    <script>
+        /* COPY TO CLIPBOARD FUNCTIONALITY */
+        function copyToClipboard(element, text) {
+            // Function to show feedback
+            function showFeedback() {
+                const originalContent = element.innerHTML;
+                const originalWidth = element.offsetWidth;
+
+                element.style.minWidth = originalWidth + 'px'; // Prevent layout shift
+                element.style.justifyContent = 'center';
+
+                element.innerHTML = '<i class="fa fa-check"></i> Copied!';
+
+                setTimeout(() => {
+                    element.innerHTML = originalContent;
+                    element.style.minWidth = '';
+                    element.style.justifyContent = '';
+                }, 2000);
+            }
+
+            if (!navigator.clipboard) {
+                // Fallback for older browsers
+                var textarea = document.createElement("textarea");
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showFeedback();
+                } catch (err) {
+                    console.error('Fallback copy failed', err);
+                }
+                document.body.removeChild(textarea);
+            } else {
+                navigator.clipboard.writeText(text).then(showFeedback, function (err) {
+                    console.error('Copy failed: ', err);
+                });
+            }
+        }
+
+        /* Navigation open / close */
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const navToggle = document.getElementById('navToggle');
+        const navMenus = document.querySelectorAll('.nav-menu');
+        const navMenu = document.getElementById('navMenu');
+        const navMenuRight = document.getElementById('navMenuRight');
+
+        const originalLeftHTML = navMenu ? navMenu.innerHTML : '';
+        const originalRightHTML = navMenuRight ? navMenuRight.innerHTML : '';
+
+        function mobileLinkHandler(e) {
+            if (window.innerWidth <= 768) {
+                closeMenus();
+            }
+        }
+
+        function attachNavLinkHandlers() {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.removeEventListener('click', mobileLinkHandler);
+                link.addEventListener('click', mobileLinkHandler);
+            });
+        }
+
+        function combineMobileMenus() {
+            if (!navMenu || !navMenuRight) return;
+
+            if (window.innerWidth <= 768) {
+                if (!navMenu.dataset.combined) {
+                    const rightItems = Array.from(navMenuRight.children).map(li => li.cloneNode(true));
+                    rightItems.forEach(li => navMenu.appendChild(li));
+                    navMenuRight.style.display = 'none';
+                    navMenu.dataset.combined = 'true';
+                    attachNavLinkHandlers();
+                }
+            } else {
+                if (navMenu.dataset.combined) {
+                    navMenu.innerHTML = originalLeftHTML;
+                    navMenuRight.innerHTML = originalRightHTML;
+                    navMenuRight.style.display = 'flex';
+                    delete navMenu.dataset.combined;
+                    attachNavLinkHandlers();
+                }
+            }
+        }
+
+        combineMobileMenus();
+        attachNavLinkHandlers();
+
+        window.addEventListener('resize', () => {
+            combineMobileMenus();
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+
+        function openMenus() {
+            navMenus.forEach(menu => menu.classList.add('active'));
+            navToggle.classList.add('open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeMenus() {
+            navMenus.forEach(menu => menu.classList.remove('active'));
+            navToggle.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+        }
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                const anyOpen = navToggle.classList.contains('open');
+                if (anyOpen) closeMenus(); else openMenus();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' || e.key === 'Esc') {
+                    if (navToggle.classList.contains('open')) closeMenus();
+                }
+            });
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    closeMenus();
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    if (window.innerWidth <= 768) closeMenus();
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenus();
+            }
+        });
+    </script>
+
+    <script>
+        // Initialize WOW animations
+        if (typeof WOW === 'function') {
+            new WOW().init();
+        }
+
+        // Initialize Nice Select
+        $(document).ready(function () {
+            if ($.fn.niceSelect) {
+                $('select.nice-select').niceSelect();
+            }
+        });
+    </script>
+
+    <script>
+        /* Loading screen removal */
+        (function () {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingVideo = document.getElementById('loading-video');
+
+            function removeLoadingScreen() {
+                if (!loadingScreen) return;
+                loadingScreen.classList.add('hide');
+                document.body.classList.remove('loading');
+                setTimeout(() => {
+                    if (loadingScreen && loadingScreen.parentNode) {
+                        loadingScreen.parentNode.removeChild(loadingScreen);
+                    }
+                }, 450);
+            }
+
+            if (loadingVideo) {
+                loadingVideo.addEventListener('ended', removeLoadingScreen);
+                const playPromise = loadingVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        removeLoadingScreen();
+                    });
+                }
+            } else {
+                removeLoadingScreen();
+            }
+        })();
+    </script>
+
+    <script>
+        // Contact Form
+        (function ($) {
+            var $form = $('#contact-form');
+            var $success = $('#contact-success');
+            var $error = $('#contact-error');
+            var $submitBtn = $('#contact-submit');
+
+            if ($.fn.validate) {
+                $form.validate({
+                    rules: {
+                        name: { required: true, minlength: 2 },
+                        email: { required: true, email: true },
+                        message: { required: true, minlength: 6 },
+                        phone: { required: true }
+                    },
+                    messages: {
+                        name: "Please enter your name (at least 2 characters)",
+                        email: "Please enter a valid email address",
+                        message: "Please enter a message (at least 6 characters)",
+                        phone: "Please enter your phone number"
+                    },
+                    errorPlacement: function () { },
+                    submitHandler: function () {
+                        $success.hide();
+                        $error.hide();
+                        $submitBtn.attr('disabled', true).find('.txt').text('Sending...');
+
+                        $.ajax({
+                            url: $form.attr('action'),
+                            type: 'POST',
+                            data: $form.serialize(),
+                            dataType: 'json',
+                            timeout: 10000,
+                        })
+                            .done(function (resp) {
+                                if (resp && resp.status && resp.status.toLowerCase() === 'ok') {
+                                    $success.show();
+                                    $form[0].reset();
+                                    if ($.fn.niceSelect) $('select.nice-select').niceSelect('update');
+                                } else {
+                                    $error.text(resp.message || 'Server error. Please try again.').show();
+                                }
+                            })
+                            .fail(function (jqXHR, textStatus) {
+                                $error.text('Unable to send message. ' + (textStatus === 'timeout' ? 'Request timed out.' : 'Please try again later.')).show();
+                            })
+                            .always(function () {
+                                $submitBtn.attr('disabled', false).find('.txt').text('Send Message');
+                            });
+
+                        return false;
+                    }
+                });
+            }
+        })(jQuery);
+    </script>
+
+    <script>
+        (function () {
+            function initNavAnimations() {
+                if (typeof gsap !== 'undefined') {
+                    try {
+                        gsap.to('.nav-menu a', {
+                            duration: 0.6,
+                            y: 0,
+                            opacity: 1,
+                            stagger: 0.06,
+                            ease: 'power3.out',
+                            overwrite: true
+                        });
+
+                        const animateActiveMenu = (menu) => {
+                            gsap.fromTo(menu.querySelectorAll('a'),
+                                { y: 16, opacity: 0 },
+                                { y: 0, opacity: 1, stagger: 0.06, duration: 0.45, ease: 'power2.out' }
+                            );
+                        };
+
+                        const navToggleBtn = document.getElementById('navToggle');
+                        if (navToggleBtn) {
+                            navToggleBtn.addEventListener('click', function () {
+                                setTimeout(() => {
+                                    document.querySelectorAll('.nav-menu.active')
+                                        .forEach(menu => animateActiveMenu(menu));
+                                }, 80);
+                            });
+                        }
+
+                        const observer = new MutationObserver((mutations) => {
+                            mutations.forEach(m => {
+                                if (m.type === 'attributes' && m.attributeName === 'class') {
+                                    const target = m.target;
+                                    if (target.classList.contains('active')) {
+                                        animateActiveMenu(target);
+                                    }
+                                }
+                            });
+                        });
+
+                        document.querySelectorAll('.nav-menu')
+                            .forEach(menu => observer.observe(menu, { attributes: true }));
+
+                    } catch (e) {
+                        document.querySelectorAll('.nav-menu a')
+                            .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                    }
+                } else {
+                    document.querySelectorAll('.nav-menu a')
+                        .forEach(a => { a.style.opacity = 1; a.style.transform = 'none'; });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initNavAnimations);
+            } else {
+                initNavAnimations();
+            }
+        })();
+    </script>
+</body>
+
+</html>
